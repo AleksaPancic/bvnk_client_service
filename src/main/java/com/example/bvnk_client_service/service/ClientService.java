@@ -1,8 +1,7 @@
 package com.example.bvnk_client_service.service;
 
-import com.example.bvnk_client_service.DTO.ReportDTO;
+import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 import com.example.bvnk_client_service.entity.Client;
-import com.example.bvnk_client_service.entity.Report;
 
 
 public interface ClientService {
@@ -20,5 +19,5 @@ public interface ClientService {
 	 */
 	Client getClientById(Long customerId);
 
-	void addReportToClientById(Long id, ReportDTO report);
+	void addReportToClientById(Long id, ReportResponseData report);
 }

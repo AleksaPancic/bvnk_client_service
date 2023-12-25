@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service.impl;
 
-import com.example.bvnk_client_service.DTO.ReportDTO;
+import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 import com.example.bvnk_client_service.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +33,13 @@ public class DefaultReportService implements ReportService {
 	}
 
 	@Override
-	public List<ReportDTO> getReports() {
+	public List<ReportResponseData> getReports() {
 		// Make a GET request to the Report microservice
-		ResponseEntity<List<ReportDTO>> response = reportTemplate.exchange(
+		ResponseEntity<List<ReportResponseData>> response = reportTemplate.exchange(
 				REPORT_SERVICE_URL,
 				HttpMethod.GET,
 				null,
-				new ParameterizedTypeReference<List<ReportDTO>>() {
+				new ParameterizedTypeReference<List<ReportResponseData>>() {
 				}
 		);
 
@@ -51,18 +51,18 @@ public class DefaultReportService implements ReportService {
 		}
 	}
 	@Override
-	public ReportDTO getReportForClient(Long clientId, Long reportId) {
+	public ReportResponseData getReportForClient(Long clientId, Long reportId) {
 		// Set up query parameters
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(REPORT_SERVICE_URL)
 														   .queryParam("clientId", clientId)
 														   .queryParam("reportId", reportId);
 
 		// Make a GET request to the Report microservice
-		ResponseEntity<ReportDTO> response = reportTemplate.exchange(
+		ResponseEntity<ReportResponseData> response = reportTemplate.exchange(
 				builder.toUriString(),
 				HttpMethod.GET,
 				null,
-				new ParameterizedTypeReference<ReportDTO>() {
+				new ParameterizedTypeReference<ReportResponseData>() {
 				}
 		);
 

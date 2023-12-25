@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service.impl;
 
-import com.example.bvnk_client_service.DTO.ReportDTO;
+import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 import com.example.bvnk_client_service.entity.Client;
 import com.example.bvnk_client_service.entity.Report;
 import com.example.bvnk_client_service.populator.Populator;
@@ -45,9 +45,9 @@ public class DefaultClientService implements ClientService {
 
 	@Transactional
 	@Override
-	public void addReportToClientById(final Long id, final ReportDTO reportDTO) { //fokusiraj se posle na ovo da vidis sta zajebava sa kljucevima
+	public void addReportToClientById(final Long id, final ReportResponseData reportResponseData) { //fokusiraj se posle na ovo da vidis sta zajebava sa kljucevima
 		Report report = new Report();
-		reportPopulator.populate(reportDTO,report);
+		reportPopulator.populate(reportResponseData, report);
 		reportRepository.save(report);
 		clientRepository.getReferenceById(id).setReport(report);
 	}

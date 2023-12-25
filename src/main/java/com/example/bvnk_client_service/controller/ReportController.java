@@ -1,9 +1,7 @@
 package com.example.bvnk_client_service.controller;
 
-import com.example.bvnk_client_service.DTO.ReportDTO;
-import com.example.bvnk_client_service.entity.Address;
+import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 import com.example.bvnk_client_service.entity.Client;
-import com.example.bvnk_client_service.entity.Report;
 import com.example.bvnk_client_service.repository.ClientRepository;
 import com.example.bvnk_client_service.service.ClientService;
 import com.example.bvnk_client_service.service.ReportService;
@@ -40,8 +38,8 @@ public class ReportController {
 
 	@PostMapping
 	public void updateCustomerReports() {
-		List<ReportDTO> reports = reportService.getReports();
-		Optional<ReportDTO> test = reports.stream().findFirst();
+		List<ReportResponseData> reports = reportService.getReports();
+		Optional<ReportResponseData> test = reports.stream().findFirst();
 		clientService.addReportToClient();
 		if (test.isPresent()) {
 			LOG.error("Here we go {} " + test.get().getReportId() + "client:" + clientService.getClientById(1L)
@@ -56,7 +54,7 @@ public class ReportController {
 	public void updateClientReport(@PathVariable Long clientId,
 								   @PathVariable Long reportId) {
 
-		ReportDTO reportdto = reportService.getReportForClient(clientId, reportId);;
+		ReportResponseData reportdto = reportService.getReportForClient(clientId, reportId);;
 		if (reportdto != null) {
 			clientService.addReportToClientById(clientId, reportdto);
 			LOG.debug("Here we go {} " + reportdto.getReportId() + "client: " + clientService.getClientById(1L)
@@ -70,11 +68,11 @@ public class ReportController {
 	public void updateClientReportById(@RequestParam("clientId") Long clientId, //Update not to be void
 									   @RequestParam("reportId") Long reportId) {
 
-		List<ReportDTO> reports = reportService.getReports();
-		Optional<ReportDTO> test = Optional.ofNullable(reports.stream()
-															  .filter(reportDTO -> reportId  == reportDTO.getReportId())
-															  .findAny()
-															  .orElseThrow(() -> new IllegalArgumentException("No such report")));
+		List<ReportResponseData> reports = reportService.getReports();
+		Optional<ReportResponseData> test = Optional.ofNullable(reports.stream()
+																	   .filter(reportDTO -> reportId  == reportDTO.getReportId())
+																	   .findAny()
+																	   .orElseThrow(() -> new IllegalArgumentException("No such report")));
 		if (test.isPresent()) {
 			clientService.addReportToClientById(clientId, test.get());
 			LOG.debug("Here we go {} " + test.get().getReportId() + "client: " + clientService.getClientById(1L)
@@ -86,8 +84,8 @@ public class ReportController {
 	}
 	@GetMapping
 	public void getCustomerReports() {
-		List<ReportDTO> reports = reportService.getReports();
-		Optional<ReportDTO> test = reports.stream().findFirst();
+		List<ReportResponseData> reports = reportService.getReports();
+		Optional<ReportResponseData> test = reports.stream().findFirst();
 		if(test.isPresent()) {
 			LOG.error("Here we go {} " + test.get().getReportId() + ","	+ test.get().getReportName());
 		} else {

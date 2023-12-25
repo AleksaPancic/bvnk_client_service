@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service;
 
-import com.example.bvnk_client_service.DTO.ReportDTO;
+import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface ReportService {
 	 *
 	 * @return a list of all reports in the system
 	 */
-	List<ReportDTO> getReports();
+	List<ReportResponseData> getReports();
 
-	ReportDTO getReportForClient(Long clientId, Long reportId);
+	ReportResponseData getReportForClient(Long clientId, Long reportId);
 }
