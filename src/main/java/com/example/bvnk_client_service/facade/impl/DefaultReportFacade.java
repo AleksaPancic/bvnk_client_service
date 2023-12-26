@@ -17,21 +17,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DefaultReportFacade implements ReportFacade {
 	private final static Logger LOG = LoggerFactory.getLogger(ReportController.class);
 
-	private ReportService reportService;
-	private ClientService clientService;
-	private ClientDAO clientDAO;
+	private final ReportService reportService;
+	private final ClientService clientService;
+	private final ClientDAO clientDAO;
 
 	@Autowired
-    public DefaultReportFacade(ReportService reportService, ClientService clientService,
-                                ClientDAO clientDAO) {
+    public DefaultReportFacade(final ReportService reportService, final ClientService clientService,
+                                final ClientDAO clientDAO) {
 		this.reportService = reportService;
 		this.clientService = clientService;
 		this.clientDAO = clientDAO;
 	}
 
 	@Override
-	public void updateClientReport(Long clientId, Long reportId) {
-		ReportResponseData reportdto = reportService.updateReportForClient(clientId, reportId);
+	public void updateClientReport(final Long clientId, final Long reportId) {
+		final ReportResponseData reportdto = reportService.updateReportForClient(clientId, reportId);
 		if (reportdto != null) {
 			clientService.addReportToClientById(clientId, reportdto);
 			LOG.debug("Here we go {} " + reportdto.getReportId() + "client: " + clientService.getClientById(clientId)
@@ -44,12 +44,12 @@ public class DefaultReportFacade implements ReportFacade {
 
 	@Override
 	public void makeADemoCustomerForTesting() {
-		Client client = new Client();
+		final Client client = new Client();
 		clientDAO.save(client);
 	}
 
 	@Override
-	public ReportResponseData getReportForClient(Long clientId) {
+	public ReportResponseData getReportForClient(final Long clientId) {
 		return reportService.getReportForClient(clientId);
 	}
 }

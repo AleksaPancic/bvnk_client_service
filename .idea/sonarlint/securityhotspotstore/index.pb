@@ -57,3 +57,9 @@ Fsrc/main/java/com/example/bvnk_client_service/facade/ReportFacade.java,4/5/45d
 Rsrc/main/java/com/example/bvnk_client_service/facade/impl/DefaultReportFacade.java,8/8/8849528f3349af9d2b5d11d616a327d4ae5ae120
 u
 Esrc/main/java/com/example/bvnk_client_service/facade/impl/Facade.java,d/4/d491f95da5f912e5e2531953507bf416076ae117
+‹
+[src/test/java/com/example/bvnk_client_service/BvnkDefaultClientServiceApplicationTests.java,9/1/915a0ad461b4be0af42001991312e0510ccc99dc
+ˆ
+Xsrc/test/java/com/example/bvnk_client_service/service/impl/DefaultReportServiceTest.java,c/9/c930d07c3176c6f845b4a9adf51eaea99f915bce
+ƒ
+Ssrc/test/java/com/example/bvnk_client_service/service/DefaultReportServiceTest.java,4/5/452e1bbb60e518e71d976b1c677d702e13f574c3

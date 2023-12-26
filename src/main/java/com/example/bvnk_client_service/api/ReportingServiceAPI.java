@@ -56,7 +56,7 @@ public interface ReportingServiceAPI {
 	 */
 	@PostMapping
 	ResponseEntity<ReportResponseData> createReportForCustomer(@HeaderMap Map<String, Object> headers,
-											   @RequestParam("customerId") Long customerId,
+											   @RequestParam("clientId") Long customerId,
 											   @RequestParam("reportingId") Long reportingId);
 
 }

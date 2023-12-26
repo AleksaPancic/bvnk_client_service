@@ -19,7 +19,7 @@ public class Client {
 	private Long clientId;
 
 	@OneToOne
-	@JoinColumn(name = "report_id", referencedColumnName = "id")
+	@JoinColumn(name = "report_Id", referencedColumnName = "reportId")
 	private Report report;
 
 	@OneToOne

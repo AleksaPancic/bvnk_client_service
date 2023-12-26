@@ -15,17 +15,17 @@ public class Report {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long reportId;
 
 	private String reportName;
 	private String reportDescription;
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getReportId() {
+		return reportId;
 	}
 
-	public Long getId() {
-		return id;
+	public void setReportId(Long reportId) {
+		this.reportId = reportId;
 	}
 
 	public String getReportName() {

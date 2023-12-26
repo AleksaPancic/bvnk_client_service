@@ -19,11 +19,11 @@ public class DefaultClientService implements ClientService {
 	private final ReportDAO reportDAO;
 	private final ReportService reportService;
 
-	private final Populator reportPopulator;
+	private final Populator<ReportResponseData, Report> reportPopulator;
 
 	@Autowired
 	public DefaultClientService(ClientDAO clientDAO, ReportDAO reportDAO,
-								ReportService reportService, Populator reportPopulator) {
+								ReportService reportService, Populator<ReportResponseData, Report> reportPopulator) {
 		this.clientDAO = clientDAO;
 		this.reportDAO = reportDAO;
 		this.reportService = reportService;
@@ -32,11 +32,14 @@ public class DefaultClientService implements ClientService {
 
 	@Transactional
 	@Override
-	public void addReportToClientById(final Long id, final ReportResponseData reportResponseData) { //fokusiraj se posle na ovo da vidis sta zajebava sa kljucevima
+	public void addReportToClientById(final Long clientId, final ReportResponseData reportResponseData) {
 		Report report = new Report();
 		reportPopulator.populate(reportResponseData, report);
 		reportDAO.save(report);
-		clientDAO.getReferenceById(id).setReport(report);
+		clientDAO.findById(clientId).ifPresent(client -> {
+			client.setReport(report);
+			clientDAO.save(client);
+		});
 	}
 
 	@Override

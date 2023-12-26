@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/report")
 public class ReportController {
-	private ReportFacade reportFacade;
+	private final ReportFacade reportFacade;
 
 	@Autowired
 	public ReportController(final ReportFacade reportFacade) {
