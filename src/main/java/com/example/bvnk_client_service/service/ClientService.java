@@ -5,10 +5,6 @@ import com.example.bvnk_client_service.entity.Client;
 
 
 public interface ClientService {
-	/**
-	 * Adds a new report to the database for the specified client
-	 */
-	void addReportToClient();
 
 	/**
 	 * Returns the client with the specified customer ID from the database

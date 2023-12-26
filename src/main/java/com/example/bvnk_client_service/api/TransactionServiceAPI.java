@@ -2,8 +2,8 @@ package com.example.bvnk_client_service.api;
 
 import com.example.bvnk_client_service.DTO.response.TransactionResponseData;
 import feign.HeaderMap;
-import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -26,7 +26,7 @@ public interface TransactionServiceAPI {
 	 *
 	 * @return The response data of the transaction
 	 */
-	@RequestLine("POST")
+	@PostMapping
 	TransactionResponseData addTransactionForClient(@HeaderMap Map<String, Object> headers,
 													@RequestParam String clientId,
 													@RequestParam String transactionId);

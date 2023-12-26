@@ -8,5 +8,4 @@ public class ReportResponseData {
 	private Long reportId;
 	private String reportName;
 	private String reportDescription;
-
 }
