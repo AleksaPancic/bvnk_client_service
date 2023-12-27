@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.service.impl;
 import com.example.bvnk_client_service.DTO.TransactionDTO;
 import com.example.bvnk_client_service.api.TransactionServiceAPI;
 import com.example.bvnk_client_service.service.TransactionService;
+import com.example.bvnk_client_service.util.function.CreateHeaderFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,18 @@ import java.util.Map;
 public class DefaultTransactionService implements TransactionService {
 
 	private final TransactionServiceAPI reportingServiceAPI;
+	private final CreateHeaderFunction createHeaderFunction;
 
 	@Autowired
-	public DefaultTransactionService(final TransactionServiceAPI reportingServiceAPI) {
+	public DefaultTransactionService(final TransactionServiceAPI reportingServiceAPI, CreateHeaderFunction createHeaderFunction) {
 		this.reportingServiceAPI = reportingServiceAPI;
+		this.createHeaderFunction = createHeaderFunction;
 	}
 
 	@Override
-	public TransactionDTO sendTransactionForCustomer(Long clientId, TransactionDTO transactionDTO) {
-		Map<String, Object> headers = createHeaders();
-		ResponseEntity<TransactionDTO> response = reportingServiceAPI.addTransactionForClient(headers, clientId,
+	public TransactionDTO sendTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO) {
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
+		final ResponseEntity<TransactionDTO> response = reportingServiceAPI.addTransactionForClient(headers, clientId,
 																							  transactionDTO);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -36,9 +39,9 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	@Override
-	public TransactionDTO cancelTransactionForCustomer(Long clientId, TransactionDTO transactionDTO) {
-		Map<String, Object> headers = createHeaders();
-		ResponseEntity<TransactionDTO> response = reportingServiceAPI.cancelTransactionForClient(headers, clientId,
+	public TransactionDTO cancelTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO) {
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
+		final ResponseEntity<TransactionDTO> response = reportingServiceAPI.cancelTransactionForClient(headers, clientId,
 																								 transactionDTO);
 		if(response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
@@ -47,10 +50,6 @@ public class DefaultTransactionService implements TransactionService {
                     "Error cancelling transaction for client: %d with status: %d",
                     clientId, response.getStatusCode().value()));
 		}
-	}
-
-	private Map<String, Object> createHeaders() {
-		return Map.of("X_AUTHORIZATION", "null", "CONTENT_TYPE", "null");
 	}
 
 }

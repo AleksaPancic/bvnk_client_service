@@ -17,7 +17,7 @@ public class DefaultClientService implements ClientService {
 	}
 
 	@Override
-	public Client getClientById(final Long customerId) {
-		return clientDAO.getReferenceById(customerId);
+	public Client getClientById(final Long clientId) {
+		return clientDAO.getReferenceById(clientId);
 	}
 }

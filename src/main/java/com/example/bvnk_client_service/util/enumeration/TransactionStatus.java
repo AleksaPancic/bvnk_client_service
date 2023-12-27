@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.util.constants;
+package com.example.bvnk_client_service.util.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

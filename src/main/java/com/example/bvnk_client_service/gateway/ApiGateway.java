@@ -4,6 +4,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class APIGateway {
+public class ApiGateway {
 	//TODO Auto-generated constructor
 }

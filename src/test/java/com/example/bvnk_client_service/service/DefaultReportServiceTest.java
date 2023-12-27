@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 //import org.junit.Before; TODO add dependency
 
 
@@ -33,10 +32,6 @@ public class DefaultReportServiceTest {
 
 	private static final Long test = 1L;
 
-	@BeforeTestClass
-	public void setUp() {
-		//
-    }
 	@Test
 	public void getReportForClient_WhenResponseSuccess() {
 		when(reportingServiceAPI.getReportForCustomer(any(), any())).thenReturn(response);
@@ -49,16 +44,15 @@ public class DefaultReportServiceTest {
 	}
 
 	@Test
-	public void shouldThrowExceptionWhenResponseIsNotSuccessful() {
-		// Arrange
+	public void shouldThrowException_WhenResponseIsNotSuccessful() {
 		ResponseEntity<ReportDTO> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		when(reportingServiceAPI.getReportForCustomer(any(), any())).thenReturn(response);
 
-		// Act & Assert
 		IllegalStateException exception = org.junit.jupiter.api.Assertions.assertThrows(
 				IllegalStateException.class,
 				() -> defaultReportService.getReportForClient(1L)
 		);
 		assertThat(exception.getMessage()).contains("Error fetching report for client:");
 	}
+
 }

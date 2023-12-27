@@ -14,7 +14,7 @@ public interface ReportFacade {
 	 * @param report the new report data
      *
 	 */
-	ReportDTO updateClientReport(Long clientId, ReportDTO report);
+	ReportDTO updateClientReport(Long clientId, ReportDTO report) throws IllegalArgumentException;
 
 	/**
 	 * Creates a demo customer for testing purposes.

@@ -30,9 +30,13 @@ public class DefaultReportFacade implements ReportFacade {
 	}
 
 	@Override
-	public ReportDTO updateClientReport(final Long clientId, final ReportDTO report) { // TODO
-		LOG.info("Updating client report");
-		return reportService.updateReportForClient(clientId, report);
+	public ReportDTO updateClientReport(final Long clientId, final ReportDTO report) throws IllegalArgumentException {
+		LOG.info("Updating client report for client with id " + clientId);
+		if (report != null) {
+			return reportService.updateReportForClient(clientId, report);
+		} else {
+			throw new IllegalArgumentException("Invalid report");
+		}
 	}
 
 	@Override
@@ -44,7 +48,11 @@ public class DefaultReportFacade implements ReportFacade {
 	@Override
 	public ReportDTO getReportForClient(final Long clientId) {
 		LOG.info("Getting client report");
-		return reportService.getReportForClient(clientId);
+		if(clientId != null && clientDAO.findById(clientId).isPresent()) {
+			return reportService.getReportForClient(clientId);
+		} else {
+			throw new IllegalArgumentException("Client id should not be null");
+		}
 	}
 
 }
