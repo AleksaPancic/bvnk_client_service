@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * This interface defines the contract for the History Service API.
  * The History Service API is used to retrieve customer transaction history data.
+ * Note: one way communication
  */
 @FeignClient(name="historyMicroservice", url="${historyMicroservice.url}")
 public interface HistoryServiceAPI {
@@ -28,5 +29,6 @@ public interface HistoryServiceAPI {
     TransactionResponseData getHistoryForCustomer(@HeaderMap Map<String,Object> headers,
                                                   @RequestParam("clientId") String clientId,
                                                   @RequestParam("historyId") String reportingId);
+
 }
 

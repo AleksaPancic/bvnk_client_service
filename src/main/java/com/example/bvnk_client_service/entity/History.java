@@ -9,18 +9,13 @@ import lombok.Data;
 
 
 @Entity
-@Table(name = "addresses")
+@Table(name = "history")
 @Data
-public class Address {
+public class History {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long addressId;
-
-	private String country;
-	private String state;
-	private String zip;
-	private String city;
-	private String street;
-	private String test;
+	private Long historyId;
+	private String historyName;
+	private String historyDescription;
 }

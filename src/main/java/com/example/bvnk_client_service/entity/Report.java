@@ -9,38 +9,14 @@ import lombok.Data;
 
 
 @Entity
-@Data
 @Table(name = "reports")
+@Data
 public class Report {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long reportId;
-
 	private String reportName;
 	private String reportDescription;
 
-	public Long getReportId() {
-		return reportId;
-	}
-
-	public void setReportId(Long reportId) {
-		this.reportId = reportId;
-	}
-
-	public String getReportName() {
-		return reportName;
-	}
-
-	public void setReportName(String reportName) {
-		this.reportName = reportName;
-	}
-
-	public String getReportDescription() {
-		return reportDescription;
-	}
-
-	public void setReportDescription(String reportDescription) {
-		this.reportDescription = reportDescription;
-	}
 }

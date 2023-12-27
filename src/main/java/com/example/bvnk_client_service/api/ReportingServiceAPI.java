@@ -39,6 +39,8 @@ public interface ReportingServiceAPI {
 	 * @param clientId the ID of the client for whom the report is being retrieved
 	 *
 	 * @return a TransactionResponseData object containing the report data
+	 *
+	 * Note: 2 way communication
 	 */
 	@GetMapping("/get")
 	ResponseEntity<ReportResponseData> getReportForCustomer(@HeaderMap Map<String, Object> headers,
