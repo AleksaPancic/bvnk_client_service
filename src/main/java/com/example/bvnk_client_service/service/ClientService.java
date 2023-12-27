@@ -15,5 +15,4 @@ public interface ClientService {
 	 */
 	Client getClientById(Long customerId);
 
-	void addReportToClientById(Long id, ReportResponseData report);
 }

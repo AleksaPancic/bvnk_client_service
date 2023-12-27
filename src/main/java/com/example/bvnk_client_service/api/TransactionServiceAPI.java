@@ -2,10 +2,11 @@ package com.example.bvnk_client_service.api;
 
 import com.example.bvnk_client_service.DTO.response.TransactionResponseData;
 import com.example.bvnk_client_service.util.constants.CancellationReason;
-import feign.HeaderMap;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -25,14 +26,14 @@ public interface TransactionServiceAPI {
 	 *
 	 * @param headers The headers of the request
 	 * @param clientId The ID of the client
-	 * @param transactionId The ID of the transaction
+	 * @param transactionId The transaction data
 	 *
 	 * @return The response data of the transaction
 	 */
 	@PostMapping
-	TransactionResponseData addTransactionForClient(@HeaderMap Map<String, Object> headers,
+	TransactionResponseData addTransactionForClient(@RequestHeader Map<String, Object> headers,
 													@RequestParam String clientId,
-													@RequestParam String transactionId);
+													@RequestBody TransactionResponseData transactionId);
 
 	/**
 	 * This method is used to cancel a transaction for a specific client.
@@ -45,7 +46,7 @@ public interface TransactionServiceAPI {
 	 * @return The response data of the transaction
 	 */
 	@DeleteMapping
-	TransactionResponseData cancelTransactionForClient(@HeaderMap Map<String, Object> headers,
+	TransactionResponseData cancelTransactionForClient(@RequestHeader Map<String, Object> headers,
 													   @RequestParam String clientId,
 													   @RequestParam String transactionId,
 													   @RequestParam CancellationReason cancellationReason);

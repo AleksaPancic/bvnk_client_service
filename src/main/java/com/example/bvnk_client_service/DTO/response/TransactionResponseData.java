@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class TransactionResponseData {
-	private String transactionId;
+	private String transactionName;
 }

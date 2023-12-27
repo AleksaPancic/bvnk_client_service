@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class HistoryReponseData {
-	private String historyId;
+	private String historyContent;
 }

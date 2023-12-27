@@ -14,13 +14,12 @@ public interface ReportService {
 	 * Updates the report for the specified client.
 	 *
 	 * @param clientId the ID of the client for whom the report is to be updated
-	 * @param reportId the ID of the report to be updated
 	 *
 	 * @return the updated report data
 	 *
 	 * @throws IllegalStateException if the report cannot be updated for any reason
 	 */
-	ReportResponseData updateReportForClient(Long clientId, Long reportId) throws IllegalStateException;
+	ReportResponseData updateReportForClient(Long clientId, ReportResponseData reportResponseData) throws IllegalStateException;
 
 	/**
 	 * Retrieves the report for the specified client.

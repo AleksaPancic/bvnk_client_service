@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PaymentMethod {
 	CARD("Card"),
-    BANK_TRANSFER("Bank Transfer"),
+	BANK_TRANSFER("Bank Transfer"),
 	PAYPAL("paypal"),
 	APPLEPAY("applepay"),
 	CRYPTO("crypto");

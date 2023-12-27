@@ -25,19 +25,18 @@ public class DefaultReportService implements ReportService {
 	}
 
 	@Override
-	public ReportResponseData updateReportForClient(final Long clientId, final Long reportId) throws IllegalStateException {
+	public ReportResponseData updateReportForClient(final Long clientId, final ReportResponseData report) throws IllegalStateException {
 
 		final Map<String, Object> headers = createHeaders();
 
-		final ResponseEntity<ReportResponseData> response = reportingServiceAPI.createReportForCustomer(headers, clientId,
-																										reportId);
+		final ResponseEntity<ReportResponseData> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
 		if (response.getStatusCode() == HttpStatus.OK) {
-			LOG.info("Updated report for client with id [%s]", clientId);
+			LOG.info("Updated report for client with id " + clientId);
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(
-					"Error updating report for client: %d and report: %d with status: %d",
-					clientId, reportId, response.getStatusCode().value()));
+					"Error updating report for client: %d with status: %d",
+					clientId, response.getStatusCode().value()));
 		}
 	}
 

@@ -12,9 +12,8 @@ public interface ReportFacade {
      * Updates the report data for a specific client.
      *
      * @param clientId the ID of the client
-     * @param reportId the ID of the report
      */
-    void updateClientReport(Long clientId, Long reportId);
+    ReportResponseData updateClientReport(Long clientId,  ReportResponseData report);
 
     /**
      * Creates a demo customer for testing purposes.

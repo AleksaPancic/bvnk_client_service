@@ -22,24 +22,17 @@ public class DefaultReportFacade implements ReportFacade {
 	private final ClientDAO clientDAO;
 
 	@Autowired
-    public DefaultReportFacade(final ReportService reportService, final ClientService clientService,
-                                final ClientDAO clientDAO) {
+	public DefaultReportFacade(final ReportService reportService, final ClientService clientService,
+							   final ClientDAO clientDAO) {
 		this.reportService = reportService;
 		this.clientService = clientService;
 		this.clientDAO = clientDAO;
 	}
 
 	@Override
-	public void updateClientReport(final Long clientId, final Long reportId) {
-		final ReportResponseData reportdto = reportService.updateReportForClient(clientId, reportId);
-		if (reportdto != null) {
-			clientService.addReportToClientById(clientId, reportdto);
-			LOG.debug("Here we go {} " + reportdto.getReportId() + "client: " + clientService.getClientById(clientId)
-																							 .getReport()
-																							 .getReportName());
-		} else {
-			LOG.error("empty report");
-		}
+	public ReportResponseData updateClientReport(final Long clientId, final ReportResponseData report) { // TODO
+		LOG.info("Updating client report");
+		return reportService.updateReportForClient(clientId, report);
 	}
 
 	@Override
@@ -50,6 +43,7 @@ public class DefaultReportFacade implements ReportFacade {
 
 	@Override
 	public ReportResponseData getReportForClient(final Long clientId) {
+		LOG.info("Getting client report");
 		return reportService.getReportForClient(clientId);
 	}
 }
