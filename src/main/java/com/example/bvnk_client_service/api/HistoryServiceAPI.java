@@ -1,10 +1,11 @@
 package com.example.bvnk_client_service.api;
 
-import com.example.bvnk_client_service.DTO.response.HistoryReponseData;
+import com.example.bvnk_client_service.DTO.response.HistoryDTO;
 import feign.HeaderMap;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -26,9 +27,9 @@ public interface HistoryServiceAPI {
 	 *
 	 * @return the transaction history data
 	 */
-	@GetMapping
-	ResponseEntity<HistoryReponseData> getHistoryForCustomer(@HeaderMap Map<String, Object> headers,
-															 @RequestParam String clientId);
+	@GetMapping("/history")
+	ResponseEntity<HistoryDTO> getHistoryForCustomer(@RequestHeader Map<String, Object> headers,
+													 @RequestParam Long clientId);
 
 }
 

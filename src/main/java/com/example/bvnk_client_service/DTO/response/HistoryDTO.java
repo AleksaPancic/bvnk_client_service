@@ -4,6 +4,6 @@ import lombok.Data;
 
 
 @Data
-public class HistoryReponseData {
+public class HistoryDTO {
 	private String historyContent;
 }
