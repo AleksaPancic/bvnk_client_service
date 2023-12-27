@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service.impl;
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
+import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
 import com.example.bvnk_client_service.service.ReportService;
 import org.slf4j.Logger;
@@ -25,11 +25,11 @@ public class DefaultReportService implements ReportService {
 	}
 
 	@Override
-	public ReportResponseData updateReportForClient(final Long clientId, final ReportResponseData report) throws IllegalStateException {
+	public ReportDTO updateReportForClient(final Long clientId, final ReportDTO report) throws IllegalStateException {
 
 		final Map<String, Object> headers = createHeaders();
 
-		final ResponseEntity<ReportResponseData> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
+		final ResponseEntity<ReportDTO> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			LOG.info("Updated report for client with id " + clientId);
 			return response.getBody();
@@ -41,11 +41,11 @@ public class DefaultReportService implements ReportService {
 	}
 
 	@Override
-	public ReportResponseData getReportForClient(final Long clientId) throws IllegalStateException {
+	public ReportDTO getReportForClient(final Long clientId) throws IllegalStateException {
 
 		final Map<String, Object> headers = createHeaders();
 
-		final ResponseEntity<ReportResponseData> response = reportingServiceAPI.getReportForCustomer(headers, clientId);
+		final ResponseEntity<ReportDTO> response = reportingServiceAPI.getReportForCustomer(headers, clientId);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
 			LOG.info("Fetched report for client with id [%s]", clientId);

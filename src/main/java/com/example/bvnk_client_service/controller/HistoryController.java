@@ -1,8 +1,9 @@
 package com.example.bvnk_client_service.controller;
 
-import com.example.bvnk_client_service.DTO.response.HistoryDTO;
+import com.example.bvnk_client_service.DTO.HistoryDTO;
 import com.example.bvnk_client_service.facade.HistoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +16,13 @@ public class HistoryController {
 	private final HistoryFacade historyFacade;
 
 	@Autowired
-	public HistoryController(HistoryFacade historyFacade) {
+	public HistoryController(final HistoryFacade historyFacade) {
 		this.historyFacade = historyFacade;
 	}
 
-	public HistoryDTO getHistoryForClient(@RequestParam Long clientId) {
+	@GetMapping
+	public HistoryDTO getHistoryForClient(@RequestParam final Long clientId) {
 		return historyFacade.getHistoryForClient(clientId);
 	}
+
 }

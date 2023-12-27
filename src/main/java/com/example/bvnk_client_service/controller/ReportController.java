@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.controller;
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
+import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.facade.ReportFacade;
 import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ public class ReportController {
 	}
 
 	@GetMapping
-	public ReportResponseData getReportForClient(@Nonnull @RequestParam final Long clientId) {
+	public ReportDTO getReportForClient(@Nonnull @RequestParam final Long clientId) {
 		return reportFacade.getReportForClient(clientId);
 	}
 
 	@PostMapping("/update")
-	public ReportResponseData updateClientReport(@Nonnull @RequestParam final Long clientId,
-												 @Nonnull @RequestBody final ReportResponseData report) {
+	public ReportDTO updateClientReport(@Nonnull @RequestParam final Long clientId,
+										@Nonnull @RequestBody final ReportDTO report) {
 		return reportFacade.updateClientReport(clientId, report);
 	}
 

@@ -1,7 +1,7 @@
 package com.example.bvnk_client_service.facade.impl;
 
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
+import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.controller.ReportController;
 import com.example.bvnk_client_service.entity.Client;
 import com.example.bvnk_client_service.facade.ReportFacade;
@@ -30,7 +30,7 @@ public class DefaultReportFacade implements ReportFacade {
 	}
 
 	@Override
-	public ReportResponseData updateClientReport(final Long clientId, final ReportResponseData report) { // TODO
+	public ReportDTO updateClientReport(final Long clientId, final ReportDTO report) { // TODO
 		LOG.info("Updating client report");
 		return reportService.updateReportForClient(clientId, report);
 	}
@@ -42,8 +42,9 @@ public class DefaultReportFacade implements ReportFacade {
 	}
 
 	@Override
-	public ReportResponseData getReportForClient(final Long clientId) {
+	public ReportDTO getReportForClient(final Long clientId) {
 		LOG.info("Getting client report");
 		return reportService.getReportForClient(clientId);
 	}
+
 }

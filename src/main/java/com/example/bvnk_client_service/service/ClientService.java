@@ -1,6 +1,5 @@
 package com.example.bvnk_client_service.service;
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
 import com.example.bvnk_client_service.entity.Client;
 
 

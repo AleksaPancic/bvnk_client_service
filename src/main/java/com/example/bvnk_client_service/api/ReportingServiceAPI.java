@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.api;
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
+import com.example.bvnk_client_service.DTO.ReportDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -29,9 +28,8 @@ public interface ReportingServiceAPI {
 	 * @return A response containing the report data
 	 */
 	@GetMapping(value = "/client/{clientId}")
-	@ResponseBody
-	ResponseEntity<ReportResponseData> getReportForCustomer(@RequestHeader Map<String, Object> headers,
-															@PathVariable Long clientId);
+	ResponseEntity<ReportDTO> getReportForCustomer(@RequestHeader Map<String, Object> headers,
+												   @PathVariable Long clientId);
 
 	/**
 	 * This method is used to create a report for a specific customer.
@@ -43,8 +41,8 @@ public interface ReportingServiceAPI {
 	 * @return A response containing the report data
 	 */
 	@PostMapping("/report/update")
-	ResponseEntity<ReportResponseData> createReportForCustomer(@RequestHeader Map<String, Object> headers,
-															   @RequestParam Long clientId,
-															   @RequestBody ReportResponseData report);
+	ResponseEntity<ReportDTO> createReportForCustomer(@RequestHeader Map<String, Object> headers,
+													  @RequestParam Long clientId,
+													  @RequestBody ReportDTO report);
 
 }

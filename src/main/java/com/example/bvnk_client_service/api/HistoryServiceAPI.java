@@ -1,7 +1,6 @@
 package com.example.bvnk_client_service.api;
 
-import com.example.bvnk_client_service.DTO.response.HistoryDTO;
-import feign.HeaderMap;
+import com.example.bvnk_client_service.DTO.HistoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service;
 
-import com.example.bvnk_client_service.DTO.response.ReportResponseData;
+import com.example.bvnk_client_service.DTO.ReportDTO;
 
 
 /**
@@ -19,7 +19,7 @@ public interface ReportService {
 	 *
 	 * @throws IllegalStateException if the report cannot be updated for any reason
 	 */
-	ReportResponseData updateReportForClient(Long clientId, ReportResponseData reportResponseData) throws IllegalStateException;
+	ReportDTO updateReportForClient(Long clientId, ReportDTO reportDTO) throws IllegalStateException;
 
 	/**
 	 * Retrieves the report for the specified client.
@@ -30,6 +30,6 @@ public interface ReportService {
 	 *
 	 * @throws IllegalStateException if the report cannot be retrieved for any reason
 	 */
-	ReportResponseData getReportForClient(Long clientId) throws IllegalStateException;
+	ReportDTO getReportForClient(Long clientId) throws IllegalStateException;
 
 }

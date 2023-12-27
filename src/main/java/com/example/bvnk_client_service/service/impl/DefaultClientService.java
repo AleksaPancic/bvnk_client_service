@@ -12,7 +12,7 @@ public class DefaultClientService implements ClientService {
 	private final ClientDAO clientDAO;
 
 	@Autowired
-	public DefaultClientService(ClientDAO clientDAO) {
+	public DefaultClientService(final ClientDAO clientDAO) {
 		this.clientDAO = clientDAO;
 	}
 

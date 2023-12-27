@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.service.impl;
 
-import com.example.bvnk_client_service.DTO.response.HistoryDTO;
+import com.example.bvnk_client_service.DTO.HistoryDTO;
 import com.example.bvnk_client_service.api.HistoryServiceAPI;
 import com.example.bvnk_client_service.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;

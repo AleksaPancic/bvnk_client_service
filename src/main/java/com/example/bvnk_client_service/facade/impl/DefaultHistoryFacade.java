@@ -1,6 +1,6 @@
 package com.example.bvnk_client_service.facade.impl;
 
-import com.example.bvnk_client_service.DTO.response.HistoryDTO;
+import com.example.bvnk_client_service.DTO.HistoryDTO;
 import com.example.bvnk_client_service.facade.HistoryFacade;
 import com.example.bvnk_client_service.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +20,5 @@ public class DefaultHistoryFacade implements HistoryFacade {
 	public HistoryDTO getHistoryForClient(final Long clientId) {
 		return historyService.getHistoryForClient(clientId);
 	}
+
 }
