@@ -15,20 +15,20 @@ import java.util.Map;
 @Service
 public class DefaultTransactionService implements TransactionService {
 
-	private final TransactionServiceAPI reportingServiceAPI;
+	private final TransactionServiceAPI transactionServiceAPI;
 	private final CreateHeaderFunction createHeaderFunction;
 
 	@Autowired
-	public DefaultTransactionService(final TransactionServiceAPI reportingServiceAPI, CreateHeaderFunction createHeaderFunction) {
-		this.reportingServiceAPI = reportingServiceAPI;
+	public DefaultTransactionService(final TransactionServiceAPI transactionServiceAPI, CreateHeaderFunction createHeaderFunction) {
+		this.transactionServiceAPI = transactionServiceAPI;
 		this.createHeaderFunction = createHeaderFunction;
 	}
 
 	@Override
 	public TransactionDTO sendTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO) {
 		final Map<String, Object> headers = createHeaderFunction.createHeaders();
-		final ResponseEntity<TransactionDTO> response = reportingServiceAPI.addTransactionForClient(headers, clientId,
-																							  transactionDTO);
+		final ResponseEntity<TransactionDTO> response = transactionServiceAPI.addTransactionForClient(headers, clientId,
+																									  transactionDTO);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		} else {
@@ -41,8 +41,8 @@ public class DefaultTransactionService implements TransactionService {
 	@Override
 	public TransactionDTO cancelTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO) {
 		final Map<String, Object> headers = createHeaderFunction.createHeaders();
-		final ResponseEntity<TransactionDTO> response = reportingServiceAPI.cancelTransactionForClient(headers, clientId,
-																								 transactionDTO);
+		final ResponseEntity<TransactionDTO> response = transactionServiceAPI.cancelTransactionForClient(headers, clientId,
+																										 transactionDTO);
 		if(response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		} else {

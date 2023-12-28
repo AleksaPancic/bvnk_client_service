@@ -20,4 +20,5 @@ public class DefaultClientService implements ClientService {
 	public Client getClientById(final Long clientId) {
 		return clientDAO.getReferenceById(clientId);
 	}
+
 }

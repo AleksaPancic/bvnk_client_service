@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.service;
+package com.example.bvnk_client_service.unit.service;
 
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
@@ -30,7 +30,7 @@ public class DefaultReportServiceTest {
 	@Mock
 	private ResponseEntity<ReportDTO> response;
 
-	private static final Long test = 1L;
+	private static final Long clientId = 1L;
 
 	@Test
 	public void getReportForClient_WhenResponseSuccess() {
@@ -38,7 +38,7 @@ public class DefaultReportServiceTest {
 		when(response.getStatusCode()).thenReturn(HttpStatus.OK);
 		when(response.getBody()).thenReturn(new ReportDTO());
 
-		ReportDTO result = defaultReportService.getReportForClient(test);
+		ReportDTO result = defaultReportService.getReportForClient(clientId);
 
 		assertThat(result).isNotNull();
 	}
@@ -50,7 +50,7 @@ public class DefaultReportServiceTest {
 
 		IllegalStateException exception = org.junit.jupiter.api.Assertions.assertThrows(
 				IllegalStateException.class,
-				() -> defaultReportService.getReportForClient(1L)
+				() -> defaultReportService.getReportForClient(clientId)
 		);
 		assertThat(exception.getMessage()).contains("Error fetching report for client:");
 	}

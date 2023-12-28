@@ -28,7 +28,7 @@ public class TransactionController {
 	}
 
 	@DeleteMapping("/cancel")
-	public TransactionDTO receiveTransactionForCustomer(@RequestParam Long clientId,
+	public TransactionDTO cancelTransactionForCustomer(@RequestParam Long clientId,
 														@RequestParam TransactionDTO transactionDTO) {
 		return transactionFacade.cancelTransactionForCustomer(clientId, transactionDTO);
 	}

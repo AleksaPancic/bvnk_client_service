@@ -40,12 +40,6 @@ public class DefaultReportFacade implements ReportFacade {
 	}
 
 	@Override
-	public void makeADemoCustomerForTesting() {
-		final Client client = new Client();
-		clientDAO.save(client);
-	}
-
-	@Override
 	public ReportDTO getReportForClient(final Long clientId) {
 		LOG.info("Getting client report");
 		if(clientId != null && clientDAO.findById(clientId).isPresent()) {

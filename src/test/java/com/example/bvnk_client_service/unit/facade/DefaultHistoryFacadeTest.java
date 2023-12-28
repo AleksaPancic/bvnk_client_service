@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.facade;
+package com.example.bvnk_client_service.unit.facade;
 
 import com.example.bvnk_client_service.DTO.HistoryDTO;
 import com.example.bvnk_client_service.entity.Client;

@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.facade;
+package com.example.bvnk_client_service.unit.facade;
 
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.entity.Client;
@@ -26,15 +26,15 @@ public class DefaultReportFacadeTest {
 	DefaultReportFacade testingInstance;
 
 	@Mock
-	ReportService reportService;
+	private ReportService reportService;
 	@Mock
-	ClientService clientService;
+	private ClientService clientService;
 	@Mock
-	ClientDAO clientDAO;
+	private ClientDAO clientDAO;
 	@Mock
-	ReportDTO reportDTO;
+	private ReportDTO reportDTO;
 	@Mock
-	ReportDTO reportDTO2;
+	private ReportDTO reportDTO2;
 
 	private static final Long clientId = 1L;
 
@@ -58,7 +58,7 @@ public class DefaultReportFacadeTest {
 	}
 
 	@Test
-    public void getReportForClient_Success() {
+	public void getReportForClient_Success() {
 
 		when(clientDAO.findById(clientId)).thenReturn(
 				Optional.of(mock(Client.class)));
@@ -71,12 +71,12 @@ public class DefaultReportFacadeTest {
 	}
 
 	@Test
-    public void getReportForClient_shouldThrowIllegalArgumentException() {
+	public void getReportForClient_shouldThrowIllegalArgumentException() {
 
 		IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () ->testingInstance.getReportForClient(null)
-        );
+				IllegalArgumentException.class,
+				() -> testingInstance.getReportForClient(null)
+		);
 
 		assertThat(exception.getMessage()).isEqualTo("Client id should not be null");
 	}

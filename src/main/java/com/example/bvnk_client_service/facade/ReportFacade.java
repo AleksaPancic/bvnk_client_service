@@ -17,11 +17,6 @@ public interface ReportFacade {
 	ReportDTO updateClientReport(Long clientId, ReportDTO report) throws IllegalArgumentException;
 
 	/**
-	 * Creates a demo customer for testing purposes.
-	 */
-	void makeADemoCustomerForTesting();
-
-	/**
 	 * Retrieves the report data for a specific client.
 	 *
 	 * @param clientId the ID of the client

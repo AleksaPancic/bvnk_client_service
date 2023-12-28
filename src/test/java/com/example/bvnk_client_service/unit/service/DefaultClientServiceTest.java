@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.service;
+package com.example.bvnk_client_service.unit.service;
 
 import com.example.bvnk_client_service.entity.Client;
 import com.example.bvnk_client_service.repository.ClientDAO;

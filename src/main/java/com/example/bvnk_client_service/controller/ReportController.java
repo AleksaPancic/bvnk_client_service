@@ -33,10 +33,4 @@ public class ReportController {
 		return reportFacade.updateClientReport(clientId, report);
 	}
 
-	//Create an empty client for report testing
-	@GetMapping("/demome")
-	public void demoCustomer() {
-		reportFacade.makeADemoCustomerForTesting();
-	}
-
 }

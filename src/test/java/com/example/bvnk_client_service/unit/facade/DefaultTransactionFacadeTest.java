@@ -1,4 +1,4 @@
-package com.example.bvnk_client_service.facade;
+package com.example.bvnk_client_service.unit.facade;
 
 import com.example.bvnk_client_service.DTO.TransactionDTO;
 import com.example.bvnk_client_service.entity.Client;
@@ -30,34 +30,34 @@ public class DefaultTransactionFacadeTest {
 	private TransactionService transactionService;
 
 	@Mock
-    private TransactionDTO transactionDTO;
+	private TransactionDTO transactionDTO;
 
 	@Mock
-    private ClientDAO clientDAO;
+	private ClientDAO clientDAO;
 
 	private final static Long clientId = 1L;
 
 	@Test
-    public void sendTransactionForCustomer_Success() {
+	public void sendTransactionForCustomer_Success() {
 		when(clientDAO.findById(clientId)).thenReturn(
 				Optional.of(mock(Client.class)));
 
 		when(transactionService.sendTransactionForCustomer(clientId, transactionDTO)).thenReturn(transactionDTO);
 		TransactionDTO result = testingInstance.sendTransactionForCustomer(clientId, transactionDTO);
-        assertThat(result).isEqualTo(transactionDTO);
+		assertThat(result).isEqualTo(transactionDTO);
 	}
 
 	@Test
-    public void sendTransactionForCustomer_shouldThrowIllegalArgumentException() {
+	public void sendTransactionForCustomer_shouldThrowIllegalArgumentException() {
 		IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () ->testingInstance.sendTransactionForCustomer(clientId, null)
-        );
+				IllegalArgumentException.class,
+				() -> testingInstance.sendTransactionForCustomer(clientId, null)
+		);
 		assertThat(exception.getMessage()).isEqualTo("Invalid arguments");
 	}
 
 	@Test
-    public void cancelTransactionForCustomer_Success() {
+	public void cancelTransactionForCustomer_Success() {
 		when(transactionService.cancelTransactionForCustomer(clientId, transactionDTO)).thenReturn(transactionDTO);
 		TransactionDTO result = testingInstance.cancelTransactionForCustomer(clientId, transactionDTO);
 		assertThat(result).isEqualTo(transactionDTO);
@@ -66,10 +66,10 @@ public class DefaultTransactionFacadeTest {
 	@Test
 	public void cancelTransactionForCustomer_shouldThrowIllegalArgumentException() {
 		IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () ->testingInstance.cancelTransactionForCustomer(clientId, null)
-        );
-        assertThat(exception.getMessage()).isEqualTo("Invalid arguments");
+				IllegalArgumentException.class,
+				() -> testingInstance.cancelTransactionForCustomer(clientId, null)
+		);
+		assertThat(exception.getMessage()).isEqualTo("Invalid arguments");
 	}
 
 	@Test
@@ -78,10 +78,10 @@ public class DefaultTransactionFacadeTest {
 		when(transactionDTO.getTransactionStatus()).thenReturn(TransactionStatus.CANCELLED);
 
 		IllegalStateException exception = assertThrows(
-                IllegalStateException.class,
-                () ->testingInstance.cancelTransactionForCustomer(clientId, transactionDTO)
-        );
-        assertThat(exception.getMessage()).isEqualTo("Transaction already cancelled, status: CANCELLED");
+				IllegalStateException.class,
+				() -> testingInstance.cancelTransactionForCustomer(clientId, transactionDTO)
+		);
+		assertThat(exception.getMessage()).isEqualTo("Transaction already cancelled, status: CANCELLED");
 	}
 
 }
