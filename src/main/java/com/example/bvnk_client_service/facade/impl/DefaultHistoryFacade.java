@@ -19,13 +19,13 @@ public class DefaultHistoryFacade implements HistoryFacade {
 	private final ClientDAO clientDAO;
 
 	@Autowired
-	public DefaultHistoryFacade(final HistoryService historyService, ClientDAO clientDAO) {
+	public DefaultHistoryFacade(final HistoryService historyService, final ClientDAO clientDAO) {
 		this.historyService = historyService;
 		this.clientDAO = clientDAO;
 	}
 
 	@Override
-	public HistoryDTO getHistoryForClient(final Long clientId) {
+	public HistoryDTO getHistoryForClient(final Long clientId) throws IllegalArgumentException {
 		LOG.info("Getting client history");
 		if (clientId == null || !clientDAO.findById(clientId).isPresent()) {
 			throw new IllegalArgumentException("Invalid client id " + clientId);

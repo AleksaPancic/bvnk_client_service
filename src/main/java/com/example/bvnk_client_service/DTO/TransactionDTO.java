@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class TransactionDTO {
+	private Long clientId; //reference to the client
 	private PaymentMethod paymentMethod;
 	private CancellationReason cancellationReason;
 	private TransactionStatus transactionStatus;

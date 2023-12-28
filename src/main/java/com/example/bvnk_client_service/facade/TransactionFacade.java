@@ -18,7 +18,7 @@ public interface TransactionFacade {
      * @param transaction the transaction details
      * @return the transaction details
      */
-    TransactionDTO sendTransactionForCustomer(Long clientId, TransactionDTO transaction);
+    TransactionDTO sendTransactionForCustomer(Long clientId, TransactionDTO transaction) throws IllegalArgumentException;
 
     /**
      * This method is used to cancel a transaction for a customer.
@@ -28,6 +28,7 @@ public interface TransactionFacade {
      * @return the transaction details
      * @throws IllegalStateException if the transaction cannot be cancelled
      */
-    TransactionDTO cancelTransactionForCustomer(Long clientId, TransactionDTO transaction) throws IllegalStateException;
+    TransactionDTO cancelTransactionForCustomer(Long clientId, TransactionDTO transaction)
+            throws IllegalStateException, IllegalArgumentException;
 
 }

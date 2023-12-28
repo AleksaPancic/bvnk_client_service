@@ -17,8 +17,12 @@ public class DefaultClientService implements ClientService {
 	}
 
 	@Override
-	public Client getClientById(final Long clientId) {
-		return clientDAO.getReferenceById(clientId);
+	public Client getClientById(final Long clientId) throws RuntimeException {
+		try {
+			return clientDAO.getReferenceById(clientId);
+		} catch (Exception e) {
+			throw new RuntimeException("An unexpected error occurred while getting client by ID " + clientId, e);
+		}
 	}
 
 }

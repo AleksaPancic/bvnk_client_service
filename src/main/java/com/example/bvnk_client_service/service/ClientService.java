@@ -12,6 +12,6 @@ public interface ClientService {
 	 *
 	 * @return the client with the specified customer ID, or null if no client with that ID exists
 	 */
-	Client getClientById(Long customerId);
+	Client getClientById(Long customerId) throws RuntimeException;
 
 }

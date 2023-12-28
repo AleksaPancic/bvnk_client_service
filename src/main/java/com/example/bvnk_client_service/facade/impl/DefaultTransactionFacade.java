@@ -20,30 +20,29 @@ public class DefaultTransactionFacade implements TransactionFacade {
 	private final static Logger LOG = LoggerFactory.getLogger(ReportController.class);
 
 	@Autowired
-    public DefaultTransactionFacade(final TransactionService transactionService, ClientDAO clientDAO) {
-        this.transactionService = transactionService;
+	public DefaultTransactionFacade(final TransactionService transactionService, ClientDAO clientDAO) {
+		this.transactionService = transactionService;
 		this.clientDAO = clientDAO;
 	}
 
 	@Override
-	public TransactionDTO sendTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO) {
-		if(clientId == null || transactionDTO == null || !clientDAO.findById(clientId).isPresent()) {
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+	public TransactionDTO sendTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO)
+			throws IllegalArgumentException {
+		if (clientId == null || transactionDTO == null || !clientDAO.findById(clientId).isPresent()) {
+			throw new IllegalArgumentException("Could not send transaction for client " + clientId);
+		}
 		return transactionService.sendTransactionForCustomer(clientId, transactionDTO);
 	}
 
 	@Override
 	public TransactionDTO cancelTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO)
-			throws IllegalStateException {
+			throws IllegalStateException, IllegalArgumentException {
 
 		LOG.info("Cancelling transaction for customer " + clientId);
 
-		if(clientId == null || transactionDTO == null) {
-			throw new IllegalArgumentException("Invalid arguments");
-		}
-
-		if (TransactionStatus.CANCELLED.equals(transactionDTO.getTransactionStatus())) {
+		if (clientId == null || transactionDTO == null) {
+			throw new IllegalArgumentException("Invalid client id provided for transaction " + clientId);
+		} else if (TransactionStatus.CANCELLED.equals(transactionDTO.getTransactionStatus())) {
 			throw new IllegalStateException(
 					"Transaction already cancelled, status: " + transactionDTO.getTransactionStatus().getDescription());
 		}

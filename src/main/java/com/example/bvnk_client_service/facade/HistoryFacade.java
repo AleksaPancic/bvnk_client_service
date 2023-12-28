@@ -14,6 +14,6 @@ public interface HistoryFacade {
      * @param clientId the ID of the client for which to retrieve the history
      * @return a {@link HistoryDTO} object containing the client's historical data
      */
-    HistoryDTO getHistoryForClient(Long clientId);
+    HistoryDTO getHistoryForClient(Long clientId) throws IllegalArgumentException;
 
 }

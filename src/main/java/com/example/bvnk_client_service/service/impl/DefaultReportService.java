@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.service.impl;
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
 import com.example.bvnk_client_service.service.ReportService;
+import com.example.bvnk_client_service.util.function.CreateHeaderFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,20 @@ import java.util.Map;
 @Service
 public class DefaultReportService implements ReportService {
 	private final ReportingServiceAPI reportingServiceAPI;
+	private final CreateHeaderFunction createHeaderFunction;
 
 	private final static Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
 	@Autowired
-	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI) {
+	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction) {
 		this.reportingServiceAPI = reportingServiceAPI;
+		this.createHeaderFunction = createHeaderFunction;
 	}
 
 	@Override
 	public ReportDTO updateReportForClient(final Long clientId, final ReportDTO report) throws IllegalStateException {
 
-		final Map<String, Object> headers = createHeaders();
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
 
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
 		if (response.getStatusCode() == HttpStatus.OK) {
@@ -43,7 +46,7 @@ public class DefaultReportService implements ReportService {
 	@Override
 	public ReportDTO getReportForClient(final Long clientId) throws IllegalStateException {
 
-		final Map<String, Object> headers = createHeaders();
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
 
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.getReportForCustomer(headers, clientId);
 
@@ -55,10 +58,6 @@ public class DefaultReportService implements ReportService {
 					"Error fetching report for client: %d with status: %d",
 					clientId, response.getStatusCode().value()));
 		}
-	}
-
-	private Map<String, Object> createHeaders() {
-		return Map.of("X_AUTHORIZATION", "null", "CONTENT_TYPE", "null");
 	}
 
 }

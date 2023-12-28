@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.unit.service;
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
 import com.example.bvnk_client_service.service.impl.DefaultReportService;
+import com.example.bvnk_client_service.util.function.CreateHeaderFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,9 @@ public class DefaultReportServiceTest {
 
 	@Mock
 	private ReportingServiceAPI reportingServiceAPI;
+
+	@Mock
+	private CreateHeaderFunction createHeaderFunction;
 
 	@Mock
 	private ResponseEntity<ReportDTO> response;
