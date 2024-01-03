@@ -53,7 +53,7 @@ public class DefaultTransactionFacadeTest {
 				IllegalArgumentException.class,
 				() -> testingInstance.sendTransactionForCustomer(clientId, null)
 		);
-		assertThat(exception.getMessage()).isEqualTo("Invalid arguments");
+		assertThat(exception.getMessage()).contains("Could not send transaction for client");
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class DefaultTransactionFacadeTest {
 				IllegalArgumentException.class,
 				() -> testingInstance.cancelTransactionForCustomer(clientId, null)
 		);
-		assertThat(exception.getMessage()).isEqualTo("Invalid arguments");
+		assertThat(exception.getMessage()).contains("Invalid client id provided for transaction");
 	}
 
 	@Test

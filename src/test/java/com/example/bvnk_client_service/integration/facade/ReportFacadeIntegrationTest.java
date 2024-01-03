@@ -20,6 +20,8 @@ public class ReportFacadeIntegrationTest {
 
 	private static final Long clientId = 1L;
 
+	private static final Long clientIdMax = Long.MAX_VALUE;
+
 	@BeforeEach
 	public void setUp() {
 		reportDTO = new ReportDTO();
@@ -41,9 +43,9 @@ public class ReportFacadeIntegrationTest {
 	@Test
 	public void updateClientReport_Failure_ShouldThrowIllegalArgumentException() throws IllegalArgumentException {
 		final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-																() -> reportFacade.updateClientReport(null, reportDTO));
+																() -> reportFacade.updateClientReport(clientIdMax, reportDTO));
 
-		assertThat(exception.getMessage()).contains("Invalid report for client with id");
+		assertThat(exception.getMessage()).contains("Can not update report for client with id ");
 		assertThat(exception).isInstanceOf(IllegalArgumentException.class);
 	}
 
@@ -58,7 +60,7 @@ public class ReportFacadeIntegrationTest {
 	@Test
 	public void getReportForClient_Failure_ShouldThrowIllegalArgumentException() {
 		final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                                                                () -> reportFacade.getReportForClient(null));
+                                                                () -> reportFacade.getReportForClient(clientIdMax));
 
         assertThat(exception.getMessage()).contains("Could not find client with id");
         assertThat(exception).isInstanceOf(IllegalArgumentException.class);

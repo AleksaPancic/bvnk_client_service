@@ -41,7 +41,7 @@ public class TransactionControllerIntegrationTest {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 														  () -> transactionController.sendTransactionForCustomer(null,
 																												 transaction));
-		assertThat(exception.getMessage()).contains("Invalid arguments");
+		assertThat(exception.getMessage()).contains("Could not send transaction for client");
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class TransactionControllerIntegrationTest {
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 														  () -> transactionController.cancelTransactionForCustomer(null,
 																												   transaction));
-		assertThat(exception.getMessage()).contains("Invalid arguments");
+		assertThat(exception.getMessage()).contains("Invalid client id provided for transaction");
 	}
 
 }

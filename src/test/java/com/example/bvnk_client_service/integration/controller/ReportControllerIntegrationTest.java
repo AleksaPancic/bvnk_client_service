@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CAN_NOT_UPDATE_REPORT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.COULD_NOT_FIND_CLIENT_WITH_ID;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.UPDATED_CLIENT_REPORT_SUCCESSFUL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -17,6 +21,7 @@ public class ReportControllerIntegrationTest {
 	private final ReportController reportController;
 
 	private static final Long clientId = 1L;
+	private static final Long clientIdMax = Long.MAX_VALUE;
 
 	@Autowired
 	public ReportControllerIntegrationTest(ReportController reportController) {
@@ -26,31 +31,49 @@ public class ReportControllerIntegrationTest {
 	@Test
 	public void getReportForClientSuccess() {
 		ReportDTO report = reportController.getReportForClient(clientId);
-		assertThat(report).isNotNull();
-		assertThat(report).isInstanceOf(ReportDTO.class);
+		assertThat(report).isNotNull().isInstanceOf(ReportDTO.class);
 	}
-
-	@Test
-	public void getReportForClientFailure() {
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-														  () -> reportController.getReportForClient(null));
-
-		assertThat(exception.getMessage()).contains("Client id should not");
-    }
 
 	@Test
 	public void updateClientReportSuccess() {
 		ReportDTO report = new ReportDTO();
-        ResponseEntity<String> updatedReport = reportController.updateClientReport(clientId, report);
-        assertThat(updatedReport.getBody()).isNotNull();
-        assertThat(updatedReport.getBody()).isInstanceOf(ReportDTO.class);
+		ResponseEntity<String> updatedReport = reportController.updateClientReport(clientId, report);
+		assertThat(updatedReport.getBody()).isNotNull().contains(UPDATED_CLIENT_REPORT_SUCCESSFUL);
 	}
 
 	@Test
-	public void updateClientReportFailure() {
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-														  () -> reportController.updateClientReport(clientId, null));
-		assertThat(exception.getMessage()).contains("Invalid report");
+	public void getReportForClientFailure_shouldThrowNullPointerException() {
+		NullPointerException exception = assertThrows(NullPointerException.class,
+														  () -> reportController.getReportForClient(null));
+
+		assertThat(exception.getMessage()).contains(String.format(NOT_NULL_MESSAGE_FORMAT, "clientId"));
+    }
+
+	@Test
+	public void getReportForClientFailure_shouldIllegalArgumentException() {
+
+		final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+																() -> reportController.getReportForClient(clientIdMax));
+
+		assertThat(exception.getMessage()).contains(COULD_NOT_FIND_CLIENT_WITH_ID);
 	}
 
+	@Test
+	public void updateClientReportFailure_shouldThrowNullPointerException() {
+
+		NullPointerException exception = assertThrows(NullPointerException.class,
+														  () -> reportController.updateClientReport(clientId, null));
+		assertThat(exception.getMessage()).contains(String.format(NOT_NULL_MESSAGE_FORMAT, ReportDTO.class.getSimpleName()));
+	}
+
+	@Test
+	public void updateClientReportFailure_shouldIllegalArgumentException() {
+
+		ReportDTO report = new ReportDTO();
+		final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+																() -> reportController.updateClientReport(clientIdMax, report));
+
+		assertThat(exception.getMessage()).contains(CAN_NOT_UPDATE_REPORT);
+	}
+	//add IllegalStateException case also
 }

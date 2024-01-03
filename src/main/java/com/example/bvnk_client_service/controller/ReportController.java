@@ -31,7 +31,7 @@ public class ReportController {
 	@GetMapping("/{clientId}")
 	public ReportDTO getReportForClient(@PathVariable final Long clientId) {
 
-		Objects.requireNonNull(clientId, String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
+		Objects.requireNonNull(clientId, String.format(NOT_NULL_MESSAGE_FORMAT, "clientId"));
 
 		return reportFacade.getReportForClient(clientId);
 	}

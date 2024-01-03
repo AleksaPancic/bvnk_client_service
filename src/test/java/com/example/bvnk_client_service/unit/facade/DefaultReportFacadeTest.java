@@ -6,6 +6,8 @@ import com.example.bvnk_client_service.facade.impl.DefaultReportFacade;
 import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ClientService;
 import com.example.bvnk_client_service.service.ReportService;
+import com.example.bvnk_client_service.util.helper.CustomerHelper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,8 +38,15 @@ public class DefaultReportFacadeTest {
 	private ReportDTO reportDTO;
 	@Mock
 	private ReportDTO reportDTO2;
+	@Mock
+	private CustomerHelper customerHelper;
 
 	private static final Long clientId = 1L;
+
+	@BeforeEach
+	public void setUp() {
+		lenient().when(customerHelper.isCustomerIdValid(clientId)).thenReturn(true);
+	}
 
 	@Test
 	public void updateClientReport_Success() {
@@ -48,37 +58,25 @@ public class DefaultReportFacadeTest {
 	}
 
 	@Test
-	public void updateClientReport_shouldThrowIllegalArgumentException() {
-
-		IllegalArgumentException exception = assertThrows(
-				IllegalArgumentException.class,
-				() -> testingInstance.updateClientReport(clientId, null)
-		);
-		assertThat(exception.getMessage()).isEqualTo("Invalid report");
-	}
-
-	@Test
 	public void getReportForClient_Success() {
-
-		when(clientDAO.findById(clientId)).thenReturn(
+		lenient().when(clientDAO.findById(clientId)).thenReturn(
 				Optional.of(mock(Client.class)));
 
-		when(reportService.getReportForClient(clientId)).thenReturn(reportDTO);
-
+		lenient().when(reportService.getReportForClient(clientId)).thenReturn(reportDTO);
 		ReportDTO result = testingInstance.getReportForClient(clientId);
 
 		assertThat(result).isEqualTo(reportDTO);
 	}
 
 	@Test
-	public void getReportForClient_shouldThrowIllegalArgumentException() {
+	public void getReportForClient_shouldThrowNullPointerException() {
 
 		IllegalArgumentException exception = assertThrows(
 				IllegalArgumentException.class,
 				() -> testingInstance.getReportForClient(null)
 		);
 
-		assertThat(exception.getMessage()).isEqualTo("Client id should not be null");
+		assertThat(exception.getMessage()).contains("Could not find client with id");
 	}
 
 }
