@@ -5,6 +5,7 @@ import com.example.bvnk_client_service.controller.ReportController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,9 +41,9 @@ public class ReportControllerIntegrationTest {
 	@Test
 	public void updateClientReportSuccess() {
 		ReportDTO report = new ReportDTO();
-        ReportDTO updatedReport = reportController.updateClientReport(clientId, report);
-        assertThat(updatedReport).isNotNull();
-        assertThat(updatedReport).isInstanceOf(ReportDTO.class);
+        ResponseEntity<String> updatedReport = reportController.updateClientReport(clientId, report);
+        assertThat(updatedReport.getBody()).isNotNull();
+        assertThat(updatedReport.getBody()).isInstanceOf(ReportDTO.class);
 	}
 
 	@Test

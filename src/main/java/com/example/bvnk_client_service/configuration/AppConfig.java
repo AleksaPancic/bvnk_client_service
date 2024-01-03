@@ -5,5 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-	//empty configuration
+	//We wont deal with SSL and HTTPS certificates in application, we will use reverse proxy as ngnix server.
+	//Empty configuration as we don't need custom @Beans without using DI
 }

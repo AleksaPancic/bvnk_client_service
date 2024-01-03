@@ -2,12 +2,15 @@ package com.example.bvnk_client_service.controller;
 
 import com.example.bvnk_client_service.DTO.HistoryDTO;
 import com.example.bvnk_client_service.facade.HistoryFacade;
-import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
+
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
 
 
 @RestController
@@ -22,7 +25,10 @@ public class HistoryController {
 	}
 
 	@GetMapping
-	public HistoryDTO getHistoryForClient(@Nonnull @RequestParam final Long clientId) {
+	public HistoryDTO getHistoryForClient(@PathVariable final Long clientId) {
+
+		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
+
 		return historyFacade.getHistoryForClient(clientId);
 	}
 
