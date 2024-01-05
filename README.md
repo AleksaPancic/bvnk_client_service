@@ -5,6 +5,5 @@ client_microservice
 
 Should be done:
 - Add JWT Token authentication/authorization
-- Expand entites
 
 - TODO update Tests

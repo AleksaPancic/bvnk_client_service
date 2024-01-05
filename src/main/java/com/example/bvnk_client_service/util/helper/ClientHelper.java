@@ -1,9 +1,9 @@
 package com.example.bvnk_client_service.util.helper;
 
 /**
- * Interface for CustomerHelper class.
+ * Interface for ClientHelper class.
  */
-public interface CustomerHelper {
+public interface ClientHelper {
 
 	/**
 	 * Checks if the customer ID is valid.

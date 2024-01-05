@@ -6,7 +6,7 @@ import com.example.bvnk_client_service.facade.impl.DefaultReportFacade;
 import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ClientService;
 import com.example.bvnk_client_service.service.ReportService;
-import com.example.bvnk_client_service.util.helper.CustomerHelper;
+import com.example.bvnk_client_service.util.helper.ClientHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,13 +39,13 @@ public class DefaultReportFacadeTest {
 	@Mock
 	private ReportDTO reportDTO2;
 	@Mock
-	private CustomerHelper customerHelper;
+	private ClientHelper clientHelper;
 
 	private static final Long clientId = 1L;
 
 	@BeforeEach
 	public void setUp() {
-		lenient().when(customerHelper.isCustomerIdValid(clientId)).thenReturn(true);
+		lenient().when(clientHelper.isCustomerIdValid(clientId)).thenReturn(true);
 	}
 
 	@Test
