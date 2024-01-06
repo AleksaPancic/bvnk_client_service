@@ -2,7 +2,6 @@ package com.example.bvnk_client_service.service.impl;
 
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
-import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ReportService;
 import com.example.bvnk_client_service.util.function.CreateHeaderFunction;
 import org.slf4j.Logger;
@@ -19,16 +18,13 @@ import java.util.Map;
 public class DefaultReportService implements ReportService {
 	private final ReportingServiceAPI reportingServiceAPI;
 	private final CreateHeaderFunction createHeaderFunction;
-	private final ClientDAO clientDAO;
 
 	private final static Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
 	@Autowired
-	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction,
-								ClientDAO clientDAO) {
+	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction) {
 		this.reportingServiceAPI = reportingServiceAPI;
 		this.createHeaderFunction = createHeaderFunction;
-		this.clientDAO = clientDAO;
 	}
 
 	@Override
