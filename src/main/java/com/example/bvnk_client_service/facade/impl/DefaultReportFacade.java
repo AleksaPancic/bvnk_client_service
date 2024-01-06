@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Facade
 public class DefaultReportFacade implements ReportFacade {
-	private final static Logger LOG = LoggerFactory.getLogger(ReportController.class);
-
 	private final ReportService reportService;
 	private final ClientHelper clientHelper;
+
+	private final static Logger LOG = LoggerFactory.getLogger(DefaultReportFacade.class);
 
 	@Autowired
 	public DefaultReportFacade(final ReportService reportService, final ClientHelper clientHelper) {

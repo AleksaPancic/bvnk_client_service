@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
 
 
 @RestController
@@ -28,7 +28,7 @@ public class HistoryController {
 	@GetMapping
 	public ResponseEntity<HistoryDTO> getHistoryForClient(@PathVariable final Long clientId) {
 
-		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 
 		return ResponseEntity.ok(historyFacade.getHistoryForClient(clientId));
 	}

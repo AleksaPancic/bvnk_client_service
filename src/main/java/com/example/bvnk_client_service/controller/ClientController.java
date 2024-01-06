@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.FIRST_NAME_NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.LAST_NAME_NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.PAGE_NOT_NULL_MESSAGE_FORMAT;
+
 
 @RestController
 @RequestMapping("/clients")
@@ -42,8 +48,8 @@ public class ClientController {
 
 	@PatchMapping("/update/address")
 	public ResponseEntity<Address> updateAddress(@RequestParam Long clientId, @RequestBody Address address) {
-		Objects.requireNonNull(clientId, "Client id cannot be null");
-		Objects.requireNonNull(address, "Address cannot be null");
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
+		Objects.requireNonNull(address, String.format(NOT_NULL_MESSAGE_FORMAT, Address.class.getSimpleName()));
 
 		return ResponseEntity.ok(clientFacade.updateAddressForClient(clientId, address));
 	}
@@ -52,7 +58,7 @@ public class ClientController {
 	public ResponseEntity<Page<Client>> getAllClientPages(@PathVariable Long page,
 														  @PageableDefault(size = 10) Pageable pageable) {
 
-		Objects.requireNonNull(page, "Page cannot be null");
+		Objects.requireNonNull(page, PAGE_NOT_NULL_MESSAGE_FORMAT);
 
 		pageable = PageRequest.of(page.intValue(), pageable.getPageSize(), pageable.getSort());
 		return ResponseEntity.ok(clientFacade.getAllClientPages(pageable));
@@ -61,7 +67,7 @@ public class ClientController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<Client> deleteClient(@RequestParam Long clientId) {
 
-		Objects.requireNonNull(clientId, "Client id cannot be null");
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 
 		return ResponseEntity.ok(clientFacade.deleteClient(clientId));
 	}
@@ -69,7 +75,7 @@ public class ClientController {
 	@PutMapping("/remove/address")
 	public ResponseEntity<Address> removeAddress(@RequestParam Long clientId) {
 
-		Objects.requireNonNull(clientId, "Client id cannot be null");
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 
 		return ResponseEntity.ok(clientFacade.removeAddressForClient(clientId));
 	}
@@ -79,9 +85,9 @@ public class ClientController {
 														 @RequestParam
 														 String lastName) { //this can be done with @RequestBody and custom obj
 
-		Objects.requireNonNull(clientId, "Client id cannot be null");
-		Objects.requireNonNull(firstName, "First name cannot be null");
-		Objects.requireNonNull(lastName, "Last name cannot be null");
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
+		Objects.requireNonNull(firstName, FIRST_NAME_NOT_NULL_MESSAGE_FORMAT);
+		Objects.requireNonNull(lastName, LAST_NAME_NOT_NULL_MESSAGE_FORMAT);
 
 		return ResponseEntity.ok(clientFacade.updateFirstAndLastName(clientId, firstName, lastName));
 	}

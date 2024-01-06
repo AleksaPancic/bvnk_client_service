@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
-import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.UPDATED_CLIENT_REPORT_SUCCESSFUL;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.UPDATED_SUCCESSFUL;
 
 
 @RestController
@@ -31,7 +32,7 @@ public class ReportController {
 	@GetMapping("/{clientId}")
 	public ResponseEntity<ReportDTO> getReportForClient(@PathVariable final Long clientId) {
 
-		Objects.requireNonNull(clientId, String.format(NOT_NULL_MESSAGE_FORMAT, "clientId"));
+		Objects.requireNonNull(clientId, String.format(NOT_NULL_MESSAGE_FORMAT, Long.class.getSimpleName()));
 
 		return ResponseEntity.ok(reportFacade.getReportForClient(clientId));
 	}
@@ -40,13 +41,13 @@ public class ReportController {
 	public ResponseEntity<String> updateClientReport(@RequestParam final Long clientId,
 													 @RequestBody final ReportDTO report) {
 
-		Objects.requireNonNull(clientId, String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 		Objects.requireNonNull(report, String.format(NOT_NULL_MESSAGE_FORMAT, ReportDTO.class.getSimpleName()));
 
 		//exception handled within GlobalExceptionHandler
 		reportFacade.updateClientReport(clientId, report);
 
-		return ResponseEntity.ok(UPDATED_CLIENT_REPORT_SUCCESSFUL + clientId);
+		return ResponseEntity.ok(String.format(UPDATED_SUCCESSFUL, ReportDTO.class.getSimpleName()) + clientId);
 	}
 
 }

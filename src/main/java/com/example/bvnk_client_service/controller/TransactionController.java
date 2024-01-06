@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
 
 
@@ -40,8 +41,8 @@ public class TransactionController {
 	public ResponseEntity<TransactionDTO> cancelTransactionForCustomer(@RequestParam final Long clientId,
 													   @RequestParam final TransactionDTO transactionDTO) {
 
-		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
-		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));
+		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
+		Objects.requireNonNull(transactionDTO, String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));
 
 		return ResponseEntity.ok(transactionFacade.cancelTransactionForCustomer(clientId, transactionDTO));
 	}

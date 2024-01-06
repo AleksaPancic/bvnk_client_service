@@ -20,12 +20,12 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<CustomErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
-		LOG.error(INVALID_REQUEST + e.getMessage());
+		LOG.error(String.format(INVALID_REQUEST, e.getMessage()));
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
 		customErrorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
 		customErrorResponse.setTimestamp(ZonedDateTime.now());
 		customErrorResponse.setError(INVALID_REQUEST);
-		customErrorResponse.setMessage(INVALID_REQUEST + e.getMessage());
+		customErrorResponse.setMessage(String.format(INVALID_REQUEST, e.getMessage()));
 		return ResponseEntity.badRequest().body(customErrorResponse);
 	}
 
