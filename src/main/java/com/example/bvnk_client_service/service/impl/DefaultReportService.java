@@ -19,7 +19,7 @@ public class DefaultReportService implements ReportService {
 	private final ReportingServiceAPI reportingServiceAPI;
 	private final CreateHeaderFunction createHeaderFunction;
 
-	private final static Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
 	@Autowired
 	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction) {
@@ -33,7 +33,7 @@ public class DefaultReportService implements ReportService {
 		final Map<String, Object> headers = createHeaderFunction.createHeaders();
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
 		if (response.getStatusCode() == HttpStatus.OK) {
-			LOG.info("Updated report for client with id " + clientId);
+			LOG.info(String.format("Updated report for client with id %d", clientId));
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(
@@ -50,7 +50,7 @@ public class DefaultReportService implements ReportService {
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.getReportForCustomer(headers, clientId);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
-			LOG.info("Fetched report for client with id [%s]", clientId);
+			LOG.info(String.format("Found report for client: %d", clientId));
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(
@@ -67,7 +67,7 @@ public class DefaultReportService implements ReportService {
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.removeReportForCustomer(headers, clientId);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
-			LOG.info("Removed report for client with id [%s]", clientId);
+			LOG.info("Removed report for client with id %d", clientId);
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(

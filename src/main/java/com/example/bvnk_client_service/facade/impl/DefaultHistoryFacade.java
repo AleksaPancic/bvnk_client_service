@@ -1,7 +1,6 @@
 package com.example.bvnk_client_service.facade.impl;
 
 import com.example.bvnk_client_service.DTO.HistoryDTO;
-import com.example.bvnk_client_service.controller.ReportController;
 import com.example.bvnk_client_service.facade.HistoryFacade;
 import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.HistoryService;
@@ -18,7 +17,7 @@ public class DefaultHistoryFacade implements HistoryFacade {
 	private final HistoryService historyService;
 	private final ClientDAO clientDAO;
 
-	private final static Logger LOG = LoggerFactory.getLogger(DefaultHistoryFacade.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultHistoryFacade.class);
 
 	@Autowired
 	public DefaultHistoryFacade(final HistoryService historyService, final ClientDAO clientDAO) {

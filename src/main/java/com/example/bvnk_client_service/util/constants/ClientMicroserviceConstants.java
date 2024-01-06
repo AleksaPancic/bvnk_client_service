@@ -13,6 +13,7 @@ public class ClientMicroserviceConstants {
 	public static final String CAN_NOT_UPDATE_REPORT = "Can not update report for client with id ";
 	public static final String COULD_NOT_FIND_CLIENT_WITH_ID = "Could not find client with id ";
 	public static final String INVALID_CLIENT_ID = "Invalid client id %s";
+	public static final String CLIENT_NOT_FOUND = "Could not find client with id %d";
 
 	private ClientMicroserviceConstants() {
 	}

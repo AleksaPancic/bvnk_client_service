@@ -28,7 +28,7 @@ public class DefaultClientFacade implements ClientFacade {
 	private final ReportService reportService;
 	private final HistoryService historyService;
 
-	private final static Logger LOG = LoggerFactory.getLogger(DefaultClientFacade.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultClientFacade.class);
 
 	@Autowired
 	public DefaultClientFacade(final ClientDAO clientDAO, final ClientService clientService, final ClientHelper clientHelper,
@@ -49,8 +49,11 @@ public class DefaultClientFacade implements ClientFacade {
 
 	@Override
 	public Address updateAddressForClient(final Long clientId, final Address address) {
-		if (clientHelper.isCustomerIdValid(clientId)) {
-			LOG.info("Updating address for client with id " + clientId);
+
+		final boolean isValid = clientHelper.isCustomerIdValid(clientId);
+
+		if (isValid) {
+			LOG.info(String.format("Updating address for client with id %d" , clientId));
 			return clientService.updateAddressForClient(clientId, address);
 		} else {
 			throw new IllegalArgumentException(String.format(INVALID_CLIENT_ID, clientId));
@@ -65,19 +68,20 @@ public class DefaultClientFacade implements ClientFacade {
 
 	@Override
 	public Client deleteClient(final Long clientId) {
-		LOG.info("Removing report for client with id " + clientId);
+		LOG.info(String.format("Removing report for client with id %d" , clientId));
 		final ReportDTO reportDTO = reportService.removeReportForClient(clientId);
-		LOG.info("Removing history for client with id " + clientId);
+		LOG.info(String.format("Removing history for client with id %d" , clientId));
 		final HistoryDTO historyDTO = historyService.removeHistoryForClient(clientId);
-		LOG.info("Deleting client with id " + clientId);
+		LOG.warn(String.format("Removing client with id %d" , clientId));
 		return clientService.deleteClient(clientId);
 	}
 
 	@Override
 	public Address removeAddressForClient(final Long clientId) {
 		if (clientHelper.isCustomerIdValid(clientId)) {
-			LOG.info("Removing address for client with id " + clientId);
-			return clientService.removeAddressForClient(clientId);
+			LOG.info(String.format("Removing address for client with id %d" , clientId));
+			clientService.removeAddressForClient(clientId);
+			return clientService.getClientById(clientId).getAddress();
 		} else {
 			throw new IllegalArgumentException(String.format(INVALID_CLIENT_ID, clientId));
 		}
@@ -86,8 +90,9 @@ public class DefaultClientFacade implements ClientFacade {
 	@Override
 	public Client updateFirstAndLastName(final Long clientId, final String firstName, final String lastName) {
 		if(clientHelper.isCustomerIdValid(clientId)) {
-			LOG.info("Updating first and last name for client with id " + clientId);
-			return clientService.updateFirstAndLastName(clientId, firstName, lastName);
+			LOG.info(String.format("Updating first and last name for client with id %d" , clientId));
+			clientService.updateFirstAndLastName(clientId, firstName, lastName);
+			return clientService.getClientById(clientId);
 		} else {
 			throw new IllegalArgumentException(String.format(INVALID_CLIENT_ID, clientId));
 		}

@@ -1,7 +1,6 @@
 package com.example.bvnk_client_service.facade.impl;
 
 import com.example.bvnk_client_service.DTO.TransactionDTO;
-import com.example.bvnk_client_service.controller.ReportController;
 import com.example.bvnk_client_service.facade.TransactionFacade;
 import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.TransactionService;
@@ -17,7 +16,7 @@ public class DefaultTransactionFacade implements TransactionFacade {
 	private final TransactionService transactionService;
 	private final ClientDAO clientDAO;
 
-	private final static Logger LOG = LoggerFactory.getLogger(ReportController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultTransactionFacade.class);
 
 	@Autowired
 	public DefaultTransactionFacade(final TransactionService transactionService, ClientDAO clientDAO) {
@@ -38,8 +37,6 @@ public class DefaultTransactionFacade implements TransactionFacade {
 	public TransactionDTO cancelTransactionForCustomer(final Long clientId, final TransactionDTO transactionDTO)
 			throws IllegalStateException, IllegalArgumentException {
 
-		LOG.info("Cancelling transaction for customer " + clientId);
-
 		if (clientId == null || transactionDTO == null) {
 			throw new IllegalArgumentException("Invalid client id provided for transaction " + clientId);
 		} else if (TransactionStatus.CANCELLED.equals(transactionDTO.getTransactionStatus())) {
@@ -47,6 +44,7 @@ public class DefaultTransactionFacade implements TransactionFacade {
 					"Transaction already cancelled, status: " + transactionDTO.getTransactionStatus().getDescription());
 		}
 
+		LOG.info(String.format("Sending transaction for client %d", clientId));
 		return transactionService.cancelTransactionForCustomer(clientId, transactionDTO);
 	}
 

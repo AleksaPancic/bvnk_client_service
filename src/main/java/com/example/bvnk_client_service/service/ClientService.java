@@ -60,7 +60,7 @@ public interface ClientService {
 	 *
 	 * @return the removed address
 	 */
-	Address removeAddressForClient(Long clientId);
+	void removeAddressForClient(Long clientId);
 
 	/**
 	 * Updates the first and last name of a client.
@@ -71,7 +71,7 @@ public interface ClientService {
 	 *
 	 * @return the updated client object
 	 */
-	Client updateFirstAndLastName(Long clientId, String firstName, String lastName);
+	void updateFirstAndLastName(Long clientId, String firstName, String lastName);
 
 	/**
 	 * Retrieves the number of clients in the database.

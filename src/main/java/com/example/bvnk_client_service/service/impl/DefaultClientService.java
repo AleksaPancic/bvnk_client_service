@@ -7,6 +7,7 @@ import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ClientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.query.InvalidJpaQueryMethodException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,12 @@ public class DefaultClientService implements ClientService {
 		try {
 			return clientDAO.getReferenceById(clientId);
 		} catch (Exception e) {
-			throw new RuntimeException("An unexpected error occurred while getting client by ID " + clientId, e);
+			throw new InvalidJpaQueryMethodException(String.format("An unexpected error occurred while getting client by ID %d" , clientId));
 		}
 	}
 
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Address updateAddressForClient(final Long clientId, final Address address) {
 		final Client client = getClientById(clientId);
 
@@ -65,7 +66,7 @@ public class DefaultClientService implements ClientService {
 		try {
 			return clientDAO.findAll(pageable);
 		} catch (Exception e) {
-			throw new RuntimeException("An unexpected error occurred while fetching client pages " + e.getMessage());
+			throw new InvalidJpaQueryMethodException("An unexpected error occurred while fetching client pages " + e.getMessage());
 		}
 	}
 
@@ -83,17 +84,14 @@ public class DefaultClientService implements ClientService {
 
 	@Override
 	@Transactional
-	public Address removeAddressForClient(Long clientId) {
-		Client client = getClientById(clientId);
+	public void removeAddressForClient(Long clientId) {
 		clientDAO.deleteAddressByClientId(clientId);
-		return client.getAddress();
 	}
 
 	@Override
 	@Transactional
-	public Client updateFirstAndLastName(Long clientId, String firstName, String lastName) {
+	public void updateFirstAndLastName(Long clientId, String firstName, String lastName) {
 		clientDAO.updateFirstAndLastName(clientId, firstName, lastName);
-		return getClientById(clientId);
 	}
 
 	@Override
