@@ -30,7 +30,7 @@ public class ReportControllerIntegrationTest {
 
 	@Test
 	public void getReportForClientSuccess() {
-		ReportDTO report = reportController.getReportForClient(clientId);
+		ReportDTO report = reportController.getReportForClient(clientId).getBody();
 		assertThat(report).isNotNull().isInstanceOf(ReportDTO.class);
 	}
 

@@ -2,6 +2,7 @@ package com.example.bvnk_client_service.service.impl;
 
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import com.example.bvnk_client_service.api.ReportingServiceAPI;
+import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ReportService;
 import com.example.bvnk_client_service.util.function.CreateHeaderFunction;
 import org.slf4j.Logger;
@@ -18,20 +19,22 @@ import java.util.Map;
 public class DefaultReportService implements ReportService {
 	private final ReportingServiceAPI reportingServiceAPI;
 	private final CreateHeaderFunction createHeaderFunction;
+	private final ClientDAO clientDAO;
 
 	private final static Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
 	@Autowired
-	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction) {
+	public DefaultReportService(final ReportingServiceAPI reportingServiceAPI, final CreateHeaderFunction createHeaderFunction,
+								ClientDAO clientDAO) {
 		this.reportingServiceAPI = reportingServiceAPI;
 		this.createHeaderFunction = createHeaderFunction;
+		this.clientDAO = clientDAO;
 	}
 
 	@Override
 	public ReportDTO updateReportForClient(final Long clientId, final ReportDTO report) throws IllegalStateException {
 
 		final Map<String, Object> headers = createHeaderFunction.createHeaders();
-
 		final ResponseEntity<ReportDTO> response = reportingServiceAPI.createReportForCustomer(headers, clientId, report);
 		if (response.getStatusCode() == HttpStatus.OK) {
 			LOG.info("Updated report for client with id " + clientId);
@@ -52,6 +55,23 @@ public class DefaultReportService implements ReportService {
 
 		if (response.getStatusCode() == HttpStatus.OK) {
 			LOG.info("Fetched report for client with id [%s]", clientId);
+			return response.getBody();
+		} else {
+			throw new IllegalStateException(String.format(
+					"Error fetching report for client: %d with status: %d",
+					clientId, response.getStatusCode().value()));
+		}
+	}
+
+	@Override
+	public ReportDTO removeReportForClient(Long clientId) throws IllegalStateException {
+
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
+
+		final ResponseEntity<ReportDTO> response = reportingServiceAPI.removeReportForCustomer(headers, clientId);
+
+		if (response.getStatusCode() == HttpStatus.OK) {
+			LOG.info("Removed report for client with id [%s]", clientId);
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(

@@ -27,12 +27,25 @@ public class DefaultHistoryService implements HistoryService {
 	public HistoryDTO getHistoryForClient(final Long clientId) throws IllegalStateException {
 		final Map<String, Object> headers = createHeaderFunction.createHeaders();
 		final ResponseEntity<HistoryDTO> response = historyServiceAPI.getHistoryForCustomer(headers, clientId);
-		if(response.getStatusCode() == HttpStatus.OK) {
+		if (response.getStatusCode() == HttpStatus.OK) {
 			return response.getBody();
 		} else {
 			throw new IllegalStateException(String.format(
-                    "Error fetching history for client: %d with status: %d",
-                    clientId, response.getStatusCode().value()));
+					"Error fetching history for client: %d with status: %d",
+					clientId, response.getStatusCode().value()));
+		}
+	}
+
+	@Override
+	public HistoryDTO removeHistoryForClient(Long clientId) throws IllegalStateException {
+		final Map<String, Object> headers = createHeaderFunction.createHeaders();
+		final ResponseEntity<HistoryDTO> response = historyServiceAPI.removeHistoryForCustomer(headers, clientId);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		} else {
+			throw new IllegalStateException(String.format(
+					"Error removing history for client: %d with status: %d",
+					clientId, response.getStatusCode().value()));
 		}
 	}
 

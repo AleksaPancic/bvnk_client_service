@@ -20,4 +20,5 @@ public class ClientControllerIntegrationTest {
 	public void createDemoCustomerSuccess() {
         clientController.demoCustomer(); //TODO Auto
     }
+
 }

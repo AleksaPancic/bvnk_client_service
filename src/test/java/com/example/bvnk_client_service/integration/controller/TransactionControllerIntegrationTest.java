@@ -31,7 +31,7 @@ public class TransactionControllerIntegrationTest {
 
 	@Test
 	public void sendTransactionToCustomer_Success() {
-		final TransactionDTO result = transactionController.sendTransactionForCustomer(clientId, transaction);
+		final TransactionDTO result = transactionController.sendTransactionForCustomer(clientId, transaction).getBody();
 		assertThat(result).isNotNull();
 		assertThat(result).isInstanceOf(TransactionDTO.class);
 	}
@@ -46,7 +46,7 @@ public class TransactionControllerIntegrationTest {
 
 	@Test
 	public void cancelTransactionToCustomer_Success() {
-		final TransactionDTO result = transactionController.cancelTransactionForCustomer(clientId, transaction);
+		final TransactionDTO result = transactionController.cancelTransactionForCustomer(clientId, transaction).getBody();
 		assertThat(result).isNotNull();
 		assertThat(result).isInstanceOf(TransactionDTO.class);
 	}

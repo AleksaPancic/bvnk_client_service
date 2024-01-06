@@ -4,6 +4,6 @@ client_microservice
 
 
 Should be done:
-- Add JWT Token authentication/authorization
-
-- TODO update Tests
+- TODO Add JWT Token authentication/authorization
+- TODO update Tests and make tests for repo
+- TODO make a wallet for client

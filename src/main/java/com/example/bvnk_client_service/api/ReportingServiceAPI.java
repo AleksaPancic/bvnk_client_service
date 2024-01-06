@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.api;
 import com.example.bvnk_client_service.DTO.ReportDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,5 +45,15 @@ public interface ReportingServiceAPI {
 	ResponseEntity<ReportDTO> createReportForCustomer(@RequestHeader Map<String, Object> headers,
 													  @RequestParam Long clientId,
 													  @RequestBody ReportDTO report);
+
+	/**
+	 * Removes a report for a customer.
+	 *
+	 * @param  headers  a map of request headers
+	 * @param  clientId the ID of the client
+	 * @return          the ResponseEntity containing the ReportDTO
+	 */
+	@DeleteMapping("/report/remove")
+	ResponseEntity<ReportDTO> removeReportForCustomer(@RequestHeader Map<String, Object> headers, @RequestParam Long clientId);
 
 }

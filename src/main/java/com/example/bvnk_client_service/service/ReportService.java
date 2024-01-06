@@ -32,4 +32,15 @@ public interface ReportService {
 	 */
 	ReportDTO getReportForClient(Long clientId) throws IllegalStateException;
 
+	/**
+	 * Remove a report for a client.
+	 *
+	 * @param clientId the ID of the client
+	 *
+	 * @return the removed report as a DTO
+	 *
+	 * @throws IllegalStateException if the client does not have a report
+	 */
+	ReportDTO removeReportForClient(Long clientId) throws IllegalStateException;
+
 }

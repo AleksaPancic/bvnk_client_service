@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.controller;
 import com.example.bvnk_client_service.DTO.TransactionDTO;
 import com.example.bvnk_client_service.facade.TransactionFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,23 +27,23 @@ public class TransactionController {
 	}
 
 	@PostMapping("/send")
-	public TransactionDTO sendTransactionForCustomer(@RequestParam final Long clientId,
-													 @RequestParam final TransactionDTO transactionDTO) {
+	public ResponseEntity<TransactionDTO> sendTransactionForCustomer(@RequestParam final Long clientId,
+																	@RequestParam final TransactionDTO transactionDTO) {
 
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));
 
-		return transactionFacade.sendTransactionForCustomer(clientId, transactionDTO);
+		return ResponseEntity.ok(transactionFacade.sendTransactionForCustomer(clientId, transactionDTO));
 	}
 
 	@DeleteMapping("/cancel")
-	public TransactionDTO cancelTransactionForCustomer(@RequestParam final Long clientId,
+	public ResponseEntity<TransactionDTO> cancelTransactionForCustomer(@RequestParam final Long clientId,
 													   @RequestParam final TransactionDTO transactionDTO) {
 
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));
 
-		return transactionFacade.cancelTransactionForCustomer(clientId, transactionDTO);
+		return ResponseEntity.ok(transactionFacade.cancelTransactionForCustomer(clientId, transactionDTO));
 	}
 
 }

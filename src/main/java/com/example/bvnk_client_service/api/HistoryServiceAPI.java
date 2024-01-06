@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.api;
 import com.example.bvnk_client_service.DTO.HistoryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,16 @@ public interface HistoryServiceAPI {
 	@GetMapping("/history")
 	ResponseEntity<HistoryDTO> getHistoryForCustomer(@RequestHeader Map<String, Object> headers,
 													 @RequestParam Long clientId);
+
+	/**
+	 * Delete the history for a customer.
+	 *
+	 * @param headers Map of request headers
+	 * @param clientId ID of the client
+	 * @return ResponseEntity containing the history DTO
+	 */
+	@DeleteMapping
+	ResponseEntity<HistoryDTO> removeHistoryForCustomer(@RequestHeader Map<String, Object> headers, @RequestParam Long clientId);
 
 }
 

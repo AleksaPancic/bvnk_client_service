@@ -26,7 +26,7 @@ public class DefaultHistoryFacade implements HistoryFacade {
 
 	@Override
 	public HistoryDTO getHistoryForClient(final Long clientId) throws IllegalArgumentException {
-		LOG.info("Getting client history");
+		LOG.info("Fetching client history");
 		if (clientId == null || !clientDAO.findById(clientId).isPresent()) {
 			throw new IllegalArgumentException("Invalid client id " + clientId);
 		}

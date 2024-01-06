@@ -18,4 +18,13 @@ public interface HistoryService {
      */
     HistoryDTO getHistoryForClient(Long clientId) throws IllegalStateException;
 
+	/**
+	 * Removes the history for a client.
+	 *
+	 * @param  clientId  the ID of the client
+	 * @return           the DTO object representing the removed history
+	 * @throws IllegalStateException  if the operation is not allowed
+	 */
+	HistoryDTO removeHistoryForClient(Long clientId) throws IllegalStateException;
+
 }
