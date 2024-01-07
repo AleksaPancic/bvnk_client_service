@@ -24,7 +24,7 @@ public class HistoryControllerIntegrationTest {
 
 	@Test
 	public void getHistory_Success() {
-        HistoryDTO historyDTO = historyController.getHistoryForClient(clientId);
+        HistoryDTO historyDTO = historyController.getHistoryForClient(clientId).getBody();
 		assertThat(historyDTO).isNotNull();
 		assertThat(historyDTO).isInstanceOf(HistoryDTO.class);
 	}

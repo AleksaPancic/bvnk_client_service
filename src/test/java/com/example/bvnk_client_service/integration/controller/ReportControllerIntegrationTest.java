@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CAN_NOT_UPDATE_REPORT;
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.COULD_NOT_FIND_CLIENT_WITH_ID;
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.NOT_NULL_MESSAGE_FORMAT;
-import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.UPDATED_CLIENT_REPORT_SUCCESSFUL;
+import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.UPDATED_SUCCESSFUL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -38,16 +38,17 @@ public class ReportControllerIntegrationTest {
 	public void updateClientReportSuccess() {
 		ReportDTO report = new ReportDTO();
 		ResponseEntity<String> updatedReport = reportController.updateClientReport(clientId, report);
-		assertThat(updatedReport.getBody()).isNotNull().contains(UPDATED_CLIENT_REPORT_SUCCESSFUL);
+		assertThat(updatedReport.getBody()).isNotNull()
+										   .contains(String.format(UPDATED_SUCCESSFUL, ReportDTO.class.getSimpleName()));
 	}
 
 	@Test
 	public void getReportForClientFailure_shouldThrowNullPointerException() {
 		NullPointerException exception = assertThrows(NullPointerException.class,
-														  () -> reportController.getReportForClient(null));
+													  () -> reportController.getReportForClient(null));
 
 		assertThat(exception.getMessage()).contains(String.format(NOT_NULL_MESSAGE_FORMAT, "clientId"));
-    }
+	}
 
 	@Test
 	public void getReportForClientFailure_shouldIllegalArgumentException() {
@@ -62,7 +63,7 @@ public class ReportControllerIntegrationTest {
 	public void updateClientReportFailure_shouldThrowNullPointerException() {
 
 		NullPointerException exception = assertThrows(NullPointerException.class,
-														  () -> reportController.updateClientReport(clientId, null));
+													  () -> reportController.updateClientReport(clientId, null));
 		assertThat(exception.getMessage()).contains(String.format(NOT_NULL_MESSAGE_FORMAT, ReportDTO.class.getSimpleName()));
 	}
 
