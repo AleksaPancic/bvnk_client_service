@@ -9,6 +9,7 @@ import lombok.Data;
 public class TransactionDTO {
 	private Long clientId; //reference to the client
 	private PaymentMethod paymentMethod;
+	private Double paymentAmount;
 	private CancellationReason cancellationReason;
 	private TransactionStatus transactionStatus;
 

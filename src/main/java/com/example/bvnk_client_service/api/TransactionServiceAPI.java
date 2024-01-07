@@ -4,6 +4,7 @@ import com.example.bvnk_client_service.DTO.TransactionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -35,6 +36,20 @@ public interface TransactionServiceAPI {
 			@RequestBody TransactionDTO transaction);
 
 	/**
+	 * Retrieves a transaction for a client.
+	 *
+	 * @param headers a map of request headers
+	 * @param clientId the ID of the client
+	 *
+	 * @return the transaction DTO
+	 */
+	@GetMapping
+	ResponseEntity<TransactionDTO> getTransactionForClient(
+			@RequestHeader Map<String, Object> headers,
+			@RequestParam Long clientId
+	);
+
+	/**
 	 * Cancels an existing transaction for the specified client.
 	 *
 	 * @param headers the headers of the request
@@ -49,4 +64,5 @@ public interface TransactionServiceAPI {
 			@RequestParam Long clientId,
 			@RequestBody TransactionDTO transaction);
 
+	//different cancellation reasons, transaction communicating with bank accepted, denied etc
 }
