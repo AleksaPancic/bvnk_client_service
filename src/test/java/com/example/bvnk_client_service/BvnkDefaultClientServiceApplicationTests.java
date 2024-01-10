@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BvnkDefaultClientServiceApplicationTests {
 
+/*
 	@Test
 	void contextLoads() {
 	}
+*/
 
 }

@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: clientmysql
+    environment:
+      MYSQL_DATABASE: client_microservice
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+  client_microservice:
+    image: client_microservice
+    build: .
+    environment:
+      MYSQL_HOST: clientmysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_PORT: 3306
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    ports:
+      - 8500-9000:8080
+      - 5100:5100

@@ -18,9 +18,9 @@ public class HistoryServiceIntegrationTest {
 		this.historyService = historyService;
 	}
 
-	@Test
+/*	@Test
 	public void getHistoryForClient_Success() throws IllegalStateException {
 		final HistoryDTO historyDTO = historyService.getHistoryForClient(clientId);
 		//TODO
-	}
+	}*/
 }

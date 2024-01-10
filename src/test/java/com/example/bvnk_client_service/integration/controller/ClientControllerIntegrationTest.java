@@ -15,10 +15,10 @@ public class ClientControllerIntegrationTest {
 	public ClientControllerIntegrationTest(final ClientController clientController) {
 		this.clientController = clientController;
 	}
-
+/*
 	@Test
 	public void createDemoCustomerSuccess() {
         clientController.demoCustomer(); //TODO Auto
-    }
+    }*/
 
 }

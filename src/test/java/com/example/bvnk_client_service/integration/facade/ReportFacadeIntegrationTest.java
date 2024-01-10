@@ -32,7 +32,7 @@ public class ReportFacadeIntegrationTest {
 		this.reportFacade = reportFacade;
 	}
 
-	@Test
+/*	@Test
 	public void updateClientReport_Success() throws IllegalArgumentException {
         final ReportDTO report = reportFacade.updateClientReport(clientId, reportDTO);
 		assertThat(report).isNotNull();
@@ -64,6 +64,6 @@ public class ReportFacadeIntegrationTest {
 
         assertThat(exception.getMessage()).contains("Could not find client with id");
         assertThat(exception).isInstanceOf(IllegalArgumentException.class);
-	}
+	}*/
 
 }

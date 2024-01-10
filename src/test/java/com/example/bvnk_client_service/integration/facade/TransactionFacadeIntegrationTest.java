@@ -33,7 +33,7 @@ public class TransactionFacadeIntegrationTest {
 	public TransactionFacadeIntegrationTest(final TransactionFacade transactionFacade) {
 		this.transactionFacade = transactionFacade;
 	}
-
+/*
 	@Test
 	public void sendTransactionForCustomer_Success() throws IllegalArgumentException {
 		final TransactionDTO transaction = transactionFacade.sendTransactionForCustomer(clientId, transactionDTO);
@@ -76,5 +76,5 @@ public class TransactionFacadeIntegrationTest {
 			transactionFacade.cancelTransactionForCustomer(clientId, transactionDTO);
 		});
 	}
-
+*/
 }

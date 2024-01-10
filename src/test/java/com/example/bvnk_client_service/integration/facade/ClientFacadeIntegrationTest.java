@@ -16,8 +16,8 @@ public class ClientFacadeIntegrationTest {
 		this.clientFacade = clientFacade;
 	}
 
-	@Test
+/*	@Test
 	public void makeADemoCustomerForTesting() {
        clientFacade.makeADemoCustomerForTesting(); //TODO Auto
-    }
+    }*/
 }

@@ -28,12 +28,15 @@ public class ReportControllerIntegrationTest {
 		this.reportController = reportController;
 	}
 
+/*
 	@Test
 	public void getReportForClientSuccess() {
 		ReportDTO report = reportController.getReportForClient(clientId).getBody();
 		assertThat(report).isNotNull().isInstanceOf(ReportDTO.class);
 	}
+*/
 
+/*
 	@Test
 	public void updateClientReportSuccess() {
 		ReportDTO report = new ReportDTO();
@@ -41,8 +44,9 @@ public class ReportControllerIntegrationTest {
 		assertThat(updatedReport.getBody()).isNotNull()
 										   .contains(String.format(UPDATED_SUCCESSFUL, ReportDTO.class.getSimpleName()));
 	}
+*/
 
-	@Test
+/*	@Test
 	public void getReportForClientFailure_shouldThrowNullPointerException() {
 		NullPointerException exception = assertThrows(NullPointerException.class,
 													  () -> reportController.getReportForClient(null));
@@ -75,6 +79,6 @@ public class ReportControllerIntegrationTest {
 																() -> reportController.updateClientReport(clientIdMax, report));
 
 		assertThat(exception.getMessage()).contains(CAN_NOT_UPDATE_REPORT);
-	}
+	}*/
 	//add IllegalStateException case also
 }

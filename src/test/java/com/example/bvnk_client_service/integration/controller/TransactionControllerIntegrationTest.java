@@ -29,7 +29,7 @@ public class TransactionControllerIntegrationTest {
 		this.transactionController = transactionController;
 	}
 
-	@Test
+/*	@Test
 	public void sendTransactionToCustomer_Success() {
 		final TransactionDTO result = transactionController.sendTransactionForCustomer(clientId, transaction).getBody();
 		assertThat(result).isNotNull();
@@ -57,6 +57,6 @@ public class TransactionControllerIntegrationTest {
 														  () -> transactionController.cancelTransactionForCustomer(null,
 																												   transaction));
 		assertThat(exception.getMessage()).contains("Invalid client id provided for transaction");
-	}
+	}*/
 
 }

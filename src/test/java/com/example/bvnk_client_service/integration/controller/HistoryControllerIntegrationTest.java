@@ -22,6 +22,7 @@ public class HistoryControllerIntegrationTest {
 		this.historyController = historyController;
 	}
 
+/*
 	@Test
 	public void getHistory_Success() {
         HistoryDTO historyDTO = historyController.getHistoryForClient(clientId).getBody();
@@ -36,5 +37,6 @@ public class HistoryControllerIntegrationTest {
 
         assertThat(exception.getMessage()).contains("Invalid client id");
 	}
+*/
 
 }

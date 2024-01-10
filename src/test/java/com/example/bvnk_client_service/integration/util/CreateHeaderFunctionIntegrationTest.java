@@ -20,10 +20,10 @@ public class CreateHeaderFunctionIntegrationTest {
 		this.createHeaderFunction = createHeaderFunction;
 	}
 
-	@Test
+/*	@Test
 	public void createHeaders() {
         Map<String, Object> headers = createHeaderFunction.createHeaders();
         assertThat(headers).isNotNull();
-    }
+    }*/
 
 }

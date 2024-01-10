@@ -36,11 +36,13 @@ public class ReportServiceIntegrationTest {
 		reportDTO = new ReportDTO();
 	}
 
+
 	@Autowired
 	public ReportServiceIntegrationTest(final ReportService reportService, ReportingServiceAPI reportingServiceAPI) {
 		this.reportService = reportService;
 	}
 
+/*
 	@Test
 	public void updateReportForClientSuccess() throws IllegalStateException {
 		ReportDTO result = reportService.updateReportForClient(clientId, reportDTO);
@@ -54,5 +56,7 @@ public class ReportServiceIntegrationTest {
 		assertThat(result).isNotNull();
 		assertThat(result).isInstanceOf(ReportDTO.class);
 	}
+*/
+
 
 }

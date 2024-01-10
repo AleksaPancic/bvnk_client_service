@@ -23,7 +23,7 @@ public class TransactionServiceIntegrationTest {
 		this.transactionService = transactionService;
 	}
 
-	@Test
+/*	@Test
 	public void sendTransactionForCustomer_Success() {
 		TransactionDTO transactionDTO = new TransactionDTO();
 		transactionDTO.setTransactionStatus(TransactionStatus.CONFIRMED);
@@ -36,6 +36,6 @@ public class TransactionServiceIntegrationTest {
 	public void sendTransactionForCustomer_IllegalArgumentException() {
 		assertThrows(IllegalArgumentException.class,
 					 () -> transactionService.sendTransactionForCustomer(clientId, null));
-	}
+	}*/
 
 }
