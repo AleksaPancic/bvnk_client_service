@@ -16,24 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
 public class DefaultClientService implements ClientService {
 	private final ClientDAO clientDAO;
 	private final Populator<Address, Address> populator;
-
-	@Value("${age.limit}")
-	private int ageLimit;
 
 	@Autowired
 	public DefaultClientService(final ClientDAO clientDAO, final Populator<Address, Address> populator) {
@@ -128,46 +117,4 @@ public class DefaultClientService implements ClientService {
 	public Double getAvgYearsClient() {
 		return clientDAO.avgYearsClient();
 	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Boolean isMinor(final Long clientId) {
-		final Client client = clientDAO.getReferenceById(clientId);
-		return isClientMinor(client);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Map<Client, Boolean> isMinorForAllClients() {
-		final List<Client> clientList = clientDAO.findAll();
-
-		return clientList.stream().collect(Collectors.toMap(
-			client -> client,
-			this::isClientMinor
-		));
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<Client> getAllClientsMinors() {
-		final List<Client> clientList = clientDAO.findAll();
-		return clientList.stream().filter(client -> isClientMinor(client)).collect(Collectors.toList());
-	}
-
-	private Boolean isClientMinor(final Client client) {
-		final Date dateOfBirth = client.getDateOfBirth();
-		final Date currentDate = new Date();
-
-		final int years = Period.between(calculateLastDayOfMonth(dateOfBirth), calculateLastDayOfMonth(currentDate)).getYears();
-
-		return years < ageLimit;
-	}
-
-	private LocalDate calculateLastDayOfMonth(final Date date) {
-		return date.toInstant()
-				   .atZone(ZoneId.systemDefault())
-				   .toLocalDate()
-				   .with(TemporalAdjusters.lastDayOfMonth());
-	}
-
 }

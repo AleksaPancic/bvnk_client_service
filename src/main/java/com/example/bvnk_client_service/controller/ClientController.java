@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -125,6 +126,21 @@ public class ClientController {
 	@GetMapping("/avg")
 	public ResponseEntity<Double> getAvgYearsClient() {
 		return ResponseEntity.ok(clientFacade.getAvgYearsClient());
+	}
+
+	@GetMapping("/isMinor")
+	public ResponseEntity<Boolean> isMinor(@RequestParam Long clientId) {
+		return ResponseEntity.ok(clientFacade.isMinor(clientId));
+	}
+
+	@GetMapping("/fetchMinorClients")
+	public ResponseEntity<List<Client>> fetchMinorClients() {
+		return ResponseEntity.ok(clientFacade.getAllClientsMinors());
+	}
+
+	@GetMapping("/fetchClientsDisplayMinority")
+	public ResponseEntity<Map<Client, Boolean>> fetchClientsDisplayMinority() {
+		return ResponseEntity.ok(clientFacade.isMinorForAllClients());
 	}
 
 }

@@ -5,9 +5,6 @@ import com.example.bvnk_client_service.entity.Client;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Map;
-
 
 /**
  * This interface defines the methods that a service should provide to interact with the database and retrieve information
@@ -98,27 +95,4 @@ public interface ClientService {
 	 * @return the average number of years a client has been with the company
 	 */
 	Double getAvgYearsClient();
-
-	/**
-	 * Check if the given client ID corresponds to a minor.
-	 *
-	 * @param clientId the client ID to check
-	 *
-	 * @return true if the client is a minor, false otherwise
-	 */
-	Boolean isMinor(Long clientId);
-
-	/**
-	 * Checks if all clients are minors.
-	 *
-	 * @return true if all clients are minors, false otherwise
-	 */
-	Map<Client, Boolean> isMinorForAllClients();
-
-	/**
-	 * Get all the clients who are minors.
-	 *
-	 * @return a list of Client objects representing minors
-	 */
-	List<Client> getAllClientsMinors();
 }

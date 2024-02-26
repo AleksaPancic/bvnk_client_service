@@ -13,10 +13,16 @@ import com.example.bvnk_client_service.util.helper.ClientHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,6 +38,10 @@ public class DefaultClientFacade implements ClientFacade {
 	private final ClientHelper clientHelper;
 	private final ReportService reportService;
 	private final HistoryService historyService;
+
+
+	@Value("${age.limit}")
+	private int ageLimit;
 
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultClientFacade.class);
 
@@ -133,6 +143,48 @@ public class DefaultClientFacade implements ClientFacade {
 					  ));
 
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Boolean isMinor(final Long clientId) {
+		final Client client = clientDAO.getReferenceById(clientId);
+		return isClientMinor(client);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Map<Client, Boolean> isMinorForAllClients() {
+		final List<Client> clientList = clientDAO.findAll();
+
+		return clientList.stream().collect(Collectors.toMap(
+				client -> client,
+				this::isClientMinor
+		));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Client> getAllClientsMinors() {
+		final List<Client> clientList = clientDAO.findAll();
+		return clientList.stream().filter(this::isClientMinor).collect(Collectors.toList());
+	}
+
+	private Boolean isClientMinor(final Client client) {
+		final Date dateOfBirth = client.getDateOfBirth();
+		final Date currentDate = new Date();
+
+		final int years = Period.between(calculateLastDayOfMonth(dateOfBirth), calculateLastDayOfMonth(currentDate)).getYears();
+
+		return years < ageLimit;
+	}
+
+	private LocalDate calculateLastDayOfMonth(final Date date) {
+		return date.toInstant()
+				   .atZone(ZoneId.systemDefault())
+				   .toLocalDate()
+				   .with(TemporalAdjusters.lastDayOfMonth());
+	}
+
 
 	private Boolean validateCountry(final Address address, final String country) {
 		if (address == null || address.getCountry() == null || !address.getCountry().equals(country)) {
