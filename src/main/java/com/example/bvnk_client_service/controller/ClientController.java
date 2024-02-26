@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -41,16 +43,33 @@ public class ClientController {
 	}
 
 
-	//Create an empty client for report testing, using void not rec approach, but its just for testing :)
-	@PostMapping("/createDemoClient")
-	public void demoCustomer() {
-		clientFacade.makeADemoCustomerForTesting();
+	/*Create/Update a client. The client request body should be something like:
+	 * {
+	 * "firstName": "John",
+	 * "lastName": "Doe",
+	 * "address": {
+	 *   "street": "123 Main St",
+	 *   "city": "Anytown",
+	 * 	}
+	 * }
+	 */
+	@PostMapping("/update")
+	public ResponseEntity<?> createClient(@Validated @RequestBody Client client, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
+		}
+		return ResponseEntity.ok(clientFacade.createClient(client));
 	}
 
 	@PatchMapping("/update/address")
-	public ResponseEntity<Address> updateAddress(@RequestParam Long clientId, @RequestBody Address address) {
+	public ResponseEntity<?> updateAddress(@RequestParam Long clientId, @Validated @RequestBody Address address,
+												 BindingResult bindingResult) {
 		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 		Objects.requireNonNull(address, String.format(NOT_NULL_MESSAGE_FORMAT, Address.class.getSimpleName()));
+
+		if(bindingResult.hasErrors()){
+			return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
+		}
 
 		return ResponseEntity.ok(clientFacade.updateAddressForClient(clientId, address));
 	}
@@ -94,7 +113,7 @@ public class ClientController {
 	}
 
 	@GetMapping("/country")
-	public ResponseEntity<Map<Long,Address>> fetchClientsByCountry(@RequestParam String country) {
+	public ResponseEntity<Map<Long, Address>> fetchClientsByCountry(@RequestParam String country) {
 		return ResponseEntity.ok(clientFacade.fetchClientsByCountry(country));
 	}
 

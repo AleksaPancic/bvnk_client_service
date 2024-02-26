@@ -2,6 +2,7 @@ package com.example.bvnk_client_service.entity;
 
 import com.example.bvnk_client_service.util.enumeration.UserRole;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,14 +31,18 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long clientId;
 
+	@NotBlank(message = "First name is required")
 	private String firstName;
 
+	@NotBlank(message = "Last name is required")
 	private String lastName;
 
 	@Email(message = "Email is not valid",
 		   regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$")
+	@Column(unique = true)
 	private String email;
 
+	@Column(unique = true)
 	private String phoneNumber;
 
 	@Enumerated(EnumType.STRING)

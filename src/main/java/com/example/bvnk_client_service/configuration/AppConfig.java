@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 
 @Configuration
@@ -23,6 +24,13 @@ public class AppConfig {
 		}
 
 		return http.build();
+	}
+
+	/* This code snippet is a configuration for method-level validation in a Spring application. It defines a bean to enable
+	method-level validation using the @Validated annotation. */
+	@Bean
+	public MethodValidationPostProcessor methodValidationPostProcessor() {
+		return new MethodValidationPostProcessor();
 	}
 
 	//We wont deal with SSL and HTTPS certificates in application, we will use reverse proxy as ngnix server.

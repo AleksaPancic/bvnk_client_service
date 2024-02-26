@@ -5,6 +5,8 @@ import com.example.bvnk_client_service.entity.Client;
 import com.example.bvnk_client_service.populator.Populator;
 import com.example.bvnk_client_service.repository.ClientDAO;
 import com.example.bvnk_client_service.service.ClientService;
+import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.InvalidJpaQueryMethodException;
@@ -25,6 +27,15 @@ public class DefaultClientService implements ClientService {
 	public DefaultClientService(final ClientDAO clientDAO, final Populator<Address, Address> populator) {
 		this.clientDAO = clientDAO;
 		this.populator = populator;
+	}
+
+	@Override
+	public Client createClient(@Valid final Client client) {
+		try {
+			return clientDAO.saveAndFlush(client);
+		} catch (DataIntegrityViolationException e) {
+			throw new IllegalArgumentException("Client with email " + client.getEmail() + " already exists");
+		}
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,12 @@ public class DefaultClientFacade implements ClientFacade {
 		this.clientHelper = clientHelper;
 		this.reportService = reportService;
 		this.historyService = historyService;
+	}
+
+	@Override
+	@Transactional
+	public Client createClient(Client client) {
+		return clientService.createClient(client);
 	}
 
 	@Override

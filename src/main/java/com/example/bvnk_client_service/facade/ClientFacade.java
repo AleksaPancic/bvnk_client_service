@@ -10,6 +10,14 @@ import java.util.Map;
 
 public interface ClientFacade {
 
+	/**
+	 * Creates a new client based on the provided client object.
+	 *
+	 * @param client the client object to be created
+	 *
+	 * @return the newly created client object
+	 */
+	Client createClient(Client client);
 
 	/**
 	 * Creates a new instance of a demo customer for testing.
@@ -38,26 +46,29 @@ public interface ClientFacade {
 	/**
 	 * Deletes a client with the specified client ID.
 	 *
-	 * @param  clientId   the ID of the client to be deleted
-	 * @return            the Client containing the deleted client object
+	 * @param clientId the ID of the client to be deleted
+	 *
+	 * @return the Client containing the deleted client object
 	 */
 	Client deleteClient(Long clientId);
 
 	/**
 	 * Removes the address for the specified client.
 	 *
-	 * @param  clientId  the ID of the client
-	 * @return           the address that was removed, or null if no address was found
+	 * @param clientId the ID of the client
+	 *
+	 * @return the address that was removed, or null if no address was found
 	 */
 	Address removeAddressForClient(Long clientId);
 
 	/**
 	 * Updates the first and last name of a client.
 	 *
-	 * @param  clientId    the ID of the client
-	 * @param  firstName   the new first name
-	 * @param  lastName    the new last name
-	 * @return             the updated client object
+	 * @param clientId the ID of the client
+	 * @param firstName the new first name
+	 * @param lastName the new last name
+	 *
+	 * @return the updated client object
 	 */
 	Client updateFirstAndLastName(Long clientId, String firstName, String lastName);
 
@@ -75,6 +86,13 @@ public interface ClientFacade {
 	 */
 	Double getAvgYearsClient();
 
+	/**
+	 * Fetches clients by country.
+	 *
+	 * @param country the country for which clients are fetched
+	 *
+	 * @return a map of clients with their addresses
+	 */
 	Map<Long, Address> fetchClientsByCountry(String country);
 
 }

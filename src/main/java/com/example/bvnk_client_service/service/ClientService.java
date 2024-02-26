@@ -15,6 +15,15 @@ import org.springframework.data.domain.Pageable;
 public interface ClientService {
 
 	/**
+	 * Create a client.
+	 *
+	 * @param client the client to create
+	 *
+	 * @return the created client
+	 */
+	Client createClient(Client client);
+
+	/**
 	 * Returns the client with the specified customer ID from the database
 	 *
 	 * @param customerId the customer ID of the client to retrieve
