@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Objects;
 
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
@@ -90,6 +91,11 @@ public class ClientController {
 		Objects.requireNonNull(lastName, LAST_NAME_NOT_NULL_MESSAGE_FORMAT);
 
 		return ResponseEntity.ok(clientFacade.updateFirstAndLastName(clientId, firstName, lastName));
+	}
+
+	@GetMapping("/country")
+	public ResponseEntity<Map<Long,Address>> fetchClientsByCountry(@RequestParam String country) {
+		return ResponseEntity.ok(clientFacade.fetchClientsByCountry(country));
 	}
 
 	@GetMapping("/count")

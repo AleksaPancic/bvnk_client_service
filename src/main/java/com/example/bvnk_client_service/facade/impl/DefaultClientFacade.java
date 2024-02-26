@@ -16,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.INVALID_CLIENT_ID;
 
 
@@ -53,7 +57,7 @@ public class DefaultClientFacade implements ClientFacade {
 		final boolean isValid = clientHelper.isCustomerIdValid(clientId);
 
 		if (isValid) {
-			LOG.info(String.format("Updating address for client with id %d" , clientId));
+			LOG.info(String.format("Updating address for client with id %d", clientId));
 			return clientService.updateAddressForClient(clientId, address);
 		} else {
 			throw new IllegalArgumentException(String.format(INVALID_CLIENT_ID, clientId));
@@ -68,18 +72,18 @@ public class DefaultClientFacade implements ClientFacade {
 
 	@Override
 	public Client deleteClient(final Long clientId) {
-		LOG.info(String.format("Removing report for client with id %d" , clientId));
+		LOG.info(String.format("Removing report for client with id %d", clientId));
 		final ReportDTO reportDTO = reportService.removeReportForClient(clientId);
-		LOG.info(String.format("Removing history for client with id %d" , clientId));
+		LOG.info(String.format("Removing history for client with id %d", clientId));
 		final HistoryDTO historyDTO = historyService.removeHistoryForClient(clientId);
-		LOG.warn(String.format("Removing client with id %d" , clientId));
+		LOG.warn(String.format("Removing client with id %d", clientId));
 		return clientService.deleteClient(clientId);
 	}
 
 	@Override
 	public Address removeAddressForClient(final Long clientId) {
 		if (clientHelper.isCustomerIdValid(clientId)) {
-			LOG.info(String.format("Removing address for client with id %d" , clientId));
+			LOG.info(String.format("Removing address for client with id %d", clientId));
 			clientService.removeAddressForClient(clientId);
 			return clientService.getClientById(clientId).getAddress();
 		} else {
@@ -89,8 +93,8 @@ public class DefaultClientFacade implements ClientFacade {
 
 	@Override
 	public Client updateFirstAndLastName(final Long clientId, final String firstName, final String lastName) {
-		if(clientHelper.isCustomerIdValid(clientId)) {
-			LOG.info(String.format("Updating first and last name for client with id %d" , clientId));
+		if (clientHelper.isCustomerIdValid(clientId)) {
+			LOG.info(String.format("Updating first and last name for client with id %d", clientId));
 			clientService.updateFirstAndLastName(clientId, firstName, lastName);
 			return clientService.getClientById(clientId);
 		} else {
@@ -108,6 +112,26 @@ public class DefaultClientFacade implements ClientFacade {
 	public Double getAvgYearsClient() {
 		LOG.info("Fetching average years client");
 		return clientService.getAvgYearsClient();
+	}
+
+	@Override
+	public Map<Long, Address> fetchClientsByCountry(final String country) {
+		List<Client> clients = clientDAO.findAll();
+
+		return clients.stream()
+					  .filter(client -> validateCountry(client.getAddress(), country))
+					  .collect(Collectors.toMap(
+							  Client::getClientId,
+							  Client::getAddress
+					  ));
+
+	}
+
+	private Boolean validateCountry(final Address address, final String country) {
+		if (address == null || address.getCountry() == null || !address.getCountry().equals(country)) {
+			return false;
+		}
+		return true;
 	}
 
 }
