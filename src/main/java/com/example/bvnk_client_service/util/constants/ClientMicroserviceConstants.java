@@ -3,6 +3,7 @@ package com.example.bvnk_client_service.util.constants;
 public class ClientMicroserviceConstants {
 
 	public static final String UPDATED_SUCCESSFUL = "%s updated successfully for client ";
+	public static final String CREATED_SUCCESSFUL = "%s created successfully";
 	public static final String CLIENT_ID_NOT_NULL_MESSAGE_FORMAT = "Client id must not be null";
 	public static final String FIRST_NAME_NOT_NULL_MESSAGE_FORMAT = "First Name must not be null";
 	public static final String LAST_NAME_NOT_NULL_MESSAGE_FORMAT = "Last Name must not be null";
@@ -14,6 +15,7 @@ public class ClientMicroserviceConstants {
 	public static final String COULD_NOT_FIND_CLIENT_WITH_ID = "Could not find client with id ";
 	public static final String INVALID_CLIENT_ID = "Invalid client id %s";
 	public static final String CLIENT_NOT_FOUND = "Could not find client with id %d";
+	public static final String VALIDATION_FAILURE = "Validation failed: %s";
 
 	private ClientMicroserviceConstants() {
 	}
