@@ -7,3 +7,4 @@ Should be done:
 - TODO Add JWT Token authentication/authorization
 - TODO update Tests and make tests for repo
 - TODO make a wallet for client
+- TODO Make integration test database seperate (if i didnt do it already)

@@ -1,6 +1,7 @@
 package com.example.bvnk_client_service.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
@@ -13,6 +14,12 @@ public class DataLoader implements CommandLineRunner {
 
 	private final DataSource dataSource;
 
+	@Value("${is.testing.enviroment}")
+	private Boolean isTestingEnviroment;
+
+	@Value("${demo.data.sql.name}")
+	private String DEMO_DATA_SQL;
+
 	@Autowired
 	public DataLoader(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -20,8 +27,10 @@ public class DataLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Load and execute the demoData.sql script after Hibernate schema generation
-		executeDataScript("demoData.sql");
+		if(isTestingEnviroment) {
+			// Load and execute the demoData.sql script after Hibernate schema generation
+			executeDataScript(DEMO_DATA_SQL);
+		}
 	}
 
 	private void executeDataScript(String scriptPath) throws Exception {

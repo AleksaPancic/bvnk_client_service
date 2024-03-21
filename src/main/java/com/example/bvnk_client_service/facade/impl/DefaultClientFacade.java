@@ -187,10 +187,7 @@ public class DefaultClientFacade implements ClientFacade {
 
 
 	private Boolean validateCountry(final Address address, final String country) {
-		if (address == null || address.getCountry() == null || !address.getCountry().equals(country)) {
-			return false;
-		}
-		return true;
+		return address != null && address.getCountry() != null && address.getCountry().equals(country);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class TransactionController {
 
 	@PostMapping("/send")
 	public ResponseEntity<TransactionDTO> sendTransactionForCustomer(@RequestParam final Long clientId,
-																	@RequestParam final TransactionDTO transactionDTO) {
+																	@RequestBody final TransactionDTO transactionDTO) {
 
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, clientId));
 		Objects.requireNonNull(String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));
@@ -39,7 +40,7 @@ public class TransactionController {
 
 	@DeleteMapping("/cancel")
 	public ResponseEntity<TransactionDTO> cancelTransactionForCustomer(@RequestParam final Long clientId,
-													   @RequestParam final TransactionDTO transactionDTO) {
+													   @RequestBody final TransactionDTO transactionDTO) {
 
 		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 		Objects.requireNonNull(transactionDTO, String.format(NOT_NULL_MESSAGE_FORMAT, TransactionDTO.class.getSimpleName()));

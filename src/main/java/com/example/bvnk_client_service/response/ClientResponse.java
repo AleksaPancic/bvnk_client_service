@@ -7,5 +7,5 @@ import lombok.Data;
 public class ClientResponse {
 	private Boolean success;
 	private String message;
-	Client data;
+	private Client data;
 }

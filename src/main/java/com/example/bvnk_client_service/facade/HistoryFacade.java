@@ -8,12 +8,6 @@ import com.example.bvnk_client_service.DTO.HistoryDTO;
  */
 public interface HistoryFacade {
 
-    /**
-     * Retrieves the history data for a specific client.
-     *
-     * @param clientId the ID of the client for which to retrieve the history
-     * @return a {@link HistoryDTO} object containing the client's historical data
-     */
     HistoryDTO getHistoryForClient(Long clientId) throws IllegalArgumentException;
 
 }
