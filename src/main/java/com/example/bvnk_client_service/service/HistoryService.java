@@ -2,6 +2,8 @@ package com.example.bvnk_client_service.service;
 
 import com.example.bvnk_client_service.DTO.HistoryDTO;
 
+import java.io.IOException;
+
 
 /**
  * This interface defines the methods that a history service should implement.
@@ -16,7 +18,7 @@ public interface HistoryService {
      * @return a {@link HistoryDTO} object containing the client's historical data
      * @throws IllegalStateException if the history cannot be retrieved
      */
-    HistoryDTO getHistoryForClient(Long clientId) throws IllegalStateException;
+    HistoryDTO getHistoryForClient(Long clientId) throws IllegalStateException, IOException;
 
 	/**
 	 * Removes the history for a client.

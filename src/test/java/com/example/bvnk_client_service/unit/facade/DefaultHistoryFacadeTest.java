@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -34,7 +35,7 @@ public class DefaultHistoryFacadeTest {
 	private static final Long clientId = 1L;
 
 	@Test
-	public void getHistoryForClient_Success() {
+	public void getHistoryForClient_Success() throws IOException {
 		when(clientDAO.findById(clientId)).thenReturn(
 				Optional.of(mock(Client.class)));
 		when(historyService.getHistoryForClient(clientId)).thenReturn(historyDTO);

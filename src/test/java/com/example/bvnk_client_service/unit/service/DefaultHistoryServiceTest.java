@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +47,7 @@ public class DefaultHistoryServiceTest {
 	}
 
 	@Test
-	public void testGetHistoryForClient_Success() {
+	public void testGetHistoryForClient_Success() throws IOException {
 		when(historyServiceAPI.getHistoryForCustomer(createHeaderFunction.createHeaders(), clientId)).thenReturn(response);
 		when(response.getStatusCode()).thenReturn(HttpStatus.OK);
 

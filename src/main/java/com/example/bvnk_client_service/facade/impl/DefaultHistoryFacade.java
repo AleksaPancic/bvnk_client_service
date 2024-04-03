@@ -7,6 +7,9 @@ import com.example.bvnk_client_service.service.HistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.io.IOException;
 
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.INVALID_CLIENT_ID;
 
@@ -26,7 +29,7 @@ public class DefaultHistoryFacade implements HistoryFacade {
 	}
 
 	@Override
-	public HistoryDTO getHistoryForClient(final Long clientId) throws IllegalArgumentException {
+	public HistoryDTO getHistoryForClient(final Long clientId) throws IllegalArgumentException, IOException {
 		LOG.info("Fetching client history");
 		if (clientId == null || !clientDAO.findById(clientId).isPresent()) {
 			throw new IllegalArgumentException(String.format(INVALID_CLIENT_ID, clientId));

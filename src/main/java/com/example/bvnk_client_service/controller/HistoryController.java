@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import static com.example.bvnk_client_service.util.constants.ClientMicroserviceConstants.CLIENT_ID_NOT_NULL_MESSAGE_FORMAT;
@@ -26,7 +28,7 @@ public class HistoryController {
 	}
 
 	@GetMapping
-	public ResponseEntity<HistoryDTO> getHistoryForClient(@PathVariable final Long clientId) {
+	public ResponseEntity<HistoryDTO> getHistoryForClient(@RequestParam final Long clientId) throws IOException {
 
 		Objects.requireNonNull(clientId, CLIENT_ID_NOT_NULL_MESSAGE_FORMAT);
 

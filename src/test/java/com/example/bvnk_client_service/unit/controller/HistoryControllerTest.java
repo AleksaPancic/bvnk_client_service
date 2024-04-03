@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+
 import static org.mockito.Mockito.times;
 
 
@@ -22,7 +24,7 @@ public class HistoryControllerTest {
 	private HistoryFacade historyFacade;
 
 	@Test
-	public void getHistoryForClient() {
+	public void getHistoryForClient() throws IOException {
 		testingInstance.getHistoryForClient(1L);
 		Mockito.verify(historyFacade, times(1)).getHistoryForClient(1L);
 	}
